@@ -7,14 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84d1154f-c142-42e6-a4e8-330d197eef27" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../mathematics/.idea/libraries/pingRemotes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mathematics/.idea/libraries/pingRemotes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mathematics/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mathematics/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mathematics/src/main/java/pns/mathutil/mtc/matrOperators/MatrixBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../mathematics/src/main/java/pns/mathutil/mtc/matrOperators/MatrixBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mathematics/src/main/java/pns/mathutil/mtc/polynomOperators/PolynomeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../mathematics/src/main/java/pns/mathutil/mtc/polynomOperators/PolynomeBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mathematics/src/main/java/pns/mathutil/start/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../mathematics/src/main/java/pns/mathutil/start/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mathematics/target/classes/pns/mathutil/mtc/matrOperators/MatrixBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../mathematics/target/classes/pns/mathutil/mtc/matrOperators/MatrixBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mathematics/target/classes/pns/mathutil/mtc/polynomOperators/PolynomeBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../mathematics/target/classes/pns/mathutil/mtc/polynomOperators/PolynomeBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mathematics/target/classes/pns/mathutil/start/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../mathematics/target/classes/pns/mathutil/start/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,6 +52,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="232" y="88" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580236904892">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="232" y="88" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1580236904892" />
     <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1580202391883">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

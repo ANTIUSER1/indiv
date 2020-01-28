@@ -51,22 +51,19 @@ public class MatrixBuilder {
         return null;
     }
 
-    public PolynomeMatrix createMatr2X2Special1OnePolynome(PolynomialFunction pf, int degMain, int degSlave) {
+    public PolynomeMatrix createMatr2X2Special1OnePolynome(PolynomialFunction pf, int degMain) {
         double[] d = {1};
         PolynomialFunction U = new PolynomialFunction(d);
 
         PolynomeBuilder pb = new PolynomeBuilder();
-        System.out.println("    pf " + pf);
-        PolynomialFunction pf10 = pf;
-        pf = pb.buildResultPower(pf, degMain);
+        PolynomialFunction pf00 = pb.buildResultPower(pf, degMain);
+        PolynomialFunction pf01 = pb.buildResultAsPowerSum(pf, 2 * degMain - 1);
 
-        PolynomialFunction pp0 = pb.buildResultAsPowerSum(pf, degSlave);
-        PolynomialFunction pp1 = pf.add(U.negate());
         PolynomialFunction[][] matrix = MatrixPolynomeUtils.initPF(2, 2);
-        matrix[0][0] = pf;
-        matrix[0][1] = pp0;
-        matrix[1][0] = pp1;
-        matrix[1][1] = pf;
+        matrix[0][0] = pf00;
+        matrix[0][1] = pf01;
+        matrix[1][0] = pf.add(U.negate());
+        matrix[1][1] = pf00;
 
         PolynomeMatrix res = new PolynomeMatrix(2, 2);
         res.setMatrix(matrix);

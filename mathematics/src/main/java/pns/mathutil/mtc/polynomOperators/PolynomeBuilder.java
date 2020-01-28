@@ -25,7 +25,6 @@ public class PolynomeBuilder {
             else {
                 res = res.multiply(p);
             }
-            System.out.println(k + "   power  " + res);
         }
         return res;
     }
@@ -35,19 +34,17 @@ public class PolynomeBuilder {
         double[] u = {1};
         PolynomialFunction res = new PolynomialFunction(u);
         PolynomialFunction q = p;
-        System.out.println(p + "  *****************   " + q);
         if (power == 0) return res;
+
         res = new PolynomialFunction(z);
         List<PolynomialFunction> pfl = new ArrayList<>();
-        System.out.println("    SUMMATION prepare ");
+
         for (int k = 0; k <= power; k++) {
             q = buildResultPower(p, k);
-            System.out.println(k + "  : " + q);
             pfl.add(q);
         }
-        System.out.println("    Array List ");
+
         for (PolynomialFunction ppf : pfl) {
-            System.out.println("         " + ppf);
             res = res.add(ppf);
         }
 

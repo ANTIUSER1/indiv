@@ -58,28 +58,29 @@ public class Main {
 //        System.out.println(m);
 
 
-//        double[] d = {1, 1};
+//        double[] d = {1, 1, 1};
 //        PolynomialFunction pp0 = new PolynomialFunction(d);
 //        System.out.println(pp0);
+//        System.out.println("     mult  ->> " + pp0.multiply(pp0));
+//
 //        PolynomeBuilder pb = new PolynomeBuilder();
-////        pp0 = pb.buildResultPower(pp0, 3);
-//        pp0 = pb.buildResultAsPowerSum(pp0, 2);
+//        pp0 = pb.buildResultPower(pp0, 2);
+//        // pp0 = pb.buildResultAsPowerSum(pp0, 2);
 //        System.out.println("    pp0-->> " + pp0);
-
 
 //        d[0] = 1;
 //        d[1] = -1;
 //        PolynomialFunction pp = new PolynomialFunction(d);
 //        System.out.println(pp + "     " + pp.multiply(pp0));
-
+//
         MatrixBuilder mb = new MatrixBuilder();
-        double[] d0 = {1, 1};
+        double[] d0 = {103, -98, 97, -100, 112, -110, 105, -109, 75, -86};
         PolynomialFunction pptr = new PolynomialFunction(d0);
-        PolynomeMatrix m = mb.createMatr2X2Special1OnePolynome(pptr, 2, 2);
+        PolynomeMatrix m = mb.createMatr2X2Special1OnePolynome(pptr, 2);
         System.out.println(m);
 //
         PolynomialFunction pf = MatrixPolynomeUtils.determinant(m);
-        System.out.println(pf);
+        System.out.println("     DET:  " + pf);
     }
 
 
