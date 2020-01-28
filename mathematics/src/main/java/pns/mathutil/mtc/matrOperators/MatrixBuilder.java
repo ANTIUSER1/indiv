@@ -3,9 +3,6 @@ package pns.mathutil.mtc.matrOperators;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import pns.mathutil.mtc.polynomOperators.PolynomeBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MatrixBuilder {
 
     public PolynomeMatrix buildVeticalFromBlocks(PolynomeMatrix[] blocks) {
@@ -55,13 +52,13 @@ public class MatrixBuilder {
     }
 
     public PolynomeMatrix createMatr2X2Special1OnePolynome(PolynomialFunction pf, int degMain, int degSlave) {
-         double [] d={1}  ;PolynomialFunction U=new PolynomialFunction(d);
+        double[] d = {1};
+        PolynomialFunction U = new PolynomialFunction(d);
 
         PolynomeBuilder pb = new PolynomeBuilder();
-        System.out.println("    pf "+pf);
-        PolynomialFunction       pf10=pf;
+        System.out.println("    pf " + pf);
+        PolynomialFunction pf10 = pf;
         pf = pb.buildResultPower(pf, degMain);
-        System.out.println("   //***** pf "+pf);
 
         PolynomialFunction pp0 = pb.buildResultAsPowerSum(pf, degSlave);
         PolynomialFunction pp1 = pf.add(U.negate());

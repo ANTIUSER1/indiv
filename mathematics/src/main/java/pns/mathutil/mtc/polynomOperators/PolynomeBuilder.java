@@ -15,15 +15,17 @@ public class PolynomeBuilder {
     }
 
     public PolynomialFunction buildResultPower(PolynomialFunction p, int power) {
-        System.out.println("PPPWW    "+power);
-        if(power==0){
-            double[] d={1};
+        if (power == 0) {
+            double[] d = {1};
             return new PolynomialFunction(d);
         }
-        PolynomialFunction res=p;
-        for (int k = 1; k < power; k++)
-        {   res = res.multiply(p);
-            System.out.println(k+"   power  "+res);
+        PolynomialFunction res = p;
+        for (int k = 1; k <= power; k++) {
+            if (k == 1) res = p;
+            else {
+                res = res.multiply(p);
+            }
+            System.out.println(k + "   power  " + res);
         }
         return res;
     }
@@ -31,22 +33,36 @@ public class PolynomeBuilder {
     public PolynomialFunction buildResultAsPowerSum(PolynomialFunction p, int power) {
         double[] z = {0};
         double[] u = {1};
+        PolynomialFunction res = new PolynomialFunction(u);
         PolynomialFunction q = p;
+        System.out.println(p + "  *****************   " + q);
+        if (power == 0) return res;
+        res = new PolynomialFunction(z);
         List<PolynomialFunction> pfl = new ArrayList<>();
-        PolynomialFunction zz = new PolynomialFunction(z);
-        PolynomialFunction rr = new PolynomialFunction(u);
-
-        for (int k = 1; k <= power; k++) {
+        System.out.println("    SUMMATION prepare ");
+        for (int k = 0; k <= power; k++) {
             q = buildResultPower(p, k);
-            System.out.println(k+"  <<----------- power "+q+  "  "+p);
+            System.out.println(k + "  : " + q);
             pfl.add(q);
         }
-        PolynomialFunction  fz=zz;
-        for (int k = 0; k < pfl.size(); k++) {
-            fz = fz.add(pfl.get(k));
-//            System.out.println(pfl.size()+"     "+k+"  |||  "+zz+"     "+fz.add(rr));
+        System.out.println("    Array List ");
+        for (PolynomialFunction ppf : pfl) {
+            System.out.println("         " + ppf);
+            res = res.add(ppf);
         }
-        return fz.add(rr) ;
+
+//
+//
+//        PolynomialFunction rr = new PolynomialFunction(u);
+//        pfl.add(q);
+//        for (int k = 1; k <= power; k++) {
+//            q = buildResultPower(p, k);
+//            pfl.add(q);
+//        }
+//        for (int k = 0; k < pfl.size(); k++) {
+//            zz = zz.add(pfl.get(k));
+        //  }
+        return res;
     }
 
 }

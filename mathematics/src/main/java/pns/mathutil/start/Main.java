@@ -4,7 +4,6 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import pns.mathutil.mtc.matrOperators.MatrixBuilder;
 import pns.mathutil.mtc.matrOperators.MatrixPolynomeUtils;
 import pns.mathutil.mtc.matrOperators.PolynomeMatrix;
-import pns.mathutil.mtc.polynomOperators.PolynomeBuilder;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -59,14 +58,13 @@ public class Main {
 //        System.out.println(m);
 
 
-        double[] d = {1, 1};
-        PolynomialFunction pp0 = new PolynomialFunction(d);
-        System.out.println(pp0);
-        PolynomeBuilder pb = new PolynomeBuilder();
-    //   pp0 = pb.buildResultPower(pp0, 3);
-//       pp0 = pb.buildResultAsPowerSum(pp0, 3);
+//        double[] d = {1, 1};
+//        PolynomialFunction pp0 = new PolynomialFunction(d);
 //        System.out.println(pp0);
-
+//        PolynomeBuilder pb = new PolynomeBuilder();
+////        pp0 = pb.buildResultPower(pp0, 3);
+//        pp0 = pb.buildResultAsPowerSum(pp0, 2);
+//        System.out.println("    pp0-->> " + pp0);
 
 
 //        d[0] = 1;
@@ -75,9 +73,9 @@ public class Main {
 //        System.out.println(pp + "     " + pp.multiply(pp0));
 
         MatrixBuilder mb = new MatrixBuilder();
-        double[] d0 = { 1, 1};
+        double[] d0 = {1, 1};
         PolynomialFunction pptr = new PolynomialFunction(d0);
-        PolynomeMatrix m = mb.createMatr2X2Special1OnePolynome(pptr, 3, 3);
+        PolynomeMatrix m = mb.createMatr2X2Special1OnePolynome(pptr, 2, 2);
         System.out.println(m);
 //
         PolynomialFunction pf = MatrixPolynomeUtils.determinant(m);

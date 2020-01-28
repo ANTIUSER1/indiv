@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="pingRemotes">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../libs/pingRemotes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../libs/pingRemotes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
