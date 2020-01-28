@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="pingRemotes:jar">
+    <output-path>$PROJECT_DIR$/../libs</output-path>
+    <root id="archive" name="pingRemotes.jar">
+      <element id="module-output" name="pingRemotes" />
+    </root>
+  </artifact>
+</component>
