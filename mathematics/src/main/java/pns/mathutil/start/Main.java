@@ -1,8 +1,8 @@
 package pns.mathutil.start;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
+import pns.mathutil.algebra.algebraCommutative.matrOperators.MatrixPolynomeUtils;
 import pns.mathutil.mtc.matrOperators.MatrixBuilder;
-import pns.mathutil.mtc.matrOperators.MatrixPolynomeUtils;
 import pns.mathutil.mtc.matrOperators.PolynomeMatrix;
 
 public class Main {

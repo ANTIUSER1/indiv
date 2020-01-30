@@ -1,6 +1,7 @@
-package pns.mathutil.mtc.matrOperators;
+package pns.mathutil.algebra.algebraCommutative.matrOperators;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
+import pns.mathutil.mtc.matrOperators.PolynomeMatrix;
 
 import java.util.ArrayList;
 import java.util.List;
