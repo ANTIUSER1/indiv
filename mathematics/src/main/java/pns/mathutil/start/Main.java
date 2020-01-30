@@ -1,15 +1,17 @@
 package pns.mathutil.start;
 
+import pns.mathutil.algebra.algebraCommutative.matrStructs.Polynom;
 import pns.mathutil.numberOperators.ArraysOperator;
+import pns.mathutil.numberOperators.ReducerArrays;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        //   modSimple();
 
-        //       PolynomialFunction[] pfArray = MatrixPolynomeUtils.initPF(5);
-        long[] db = ArraysOperator.createRandomLong(3);
-        for (Long dd : db) {
-            System.out.println(dd);
-        }
+        //arrayOperatorTest();
+
+        polynomArithmeticTest();
+
 //        SimplePolynome sp = new SimplePolynome(5);
 //        System.out.println(sp.getPolynom());
 //        System.out.println();
@@ -81,6 +83,36 @@ public class Main {
 ////
 //        PolynomialFunction pf = MatrixPolynomeUtils.determinant(m);
 //        System.out.println("     DET:  " + pf);
+    }
+
+    public static void polynomArithmeticTest() {
+
+        byte[] doubles0 = {5, 51};
+        byte[] doubles1 = {11, 6};
+        doubles0 = "ASxxsdd".getBytes();
+        doubles1 = "Annsdd".getBytes();
+        Polynom polynom = new Polynom(doubles0, 7);
+        Polynom polynom1 = new Polynom(doubles1, 7);
+
+        System.out.println(polynom);
+        System.out.println(polynom1);
+        System.out.println(polynom.add(polynom1));
+        System.out.println(polynom.multiply(polynom1));
+    }
+
+    public static void arrayOperatorTest() {
+        long[] db = ArraysOperator.createRandomLong(3);
+        for (Long dd : db) {
+            System.out.println(dd);
+        }
+    }
+
+    public static void modSimple() {
+        int[] ddd = {12, -4};
+//        System.out.println(ddd + "     " + Reducer.reduceMod(ddd, 5));
+        for (Integer d : ReducerArrays.reduceMod(ddd, 5)) {
+            System.out.println(d);
+        }
     }
 
 

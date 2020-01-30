@@ -1,4 +1,4 @@
-package pns.mathutil.mtc.polynomOperators;
+package pns.mathutil.algebra.algebraCommutative.polynomOperators;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import pns.mathutil.numberOperators.ArraysOperator;

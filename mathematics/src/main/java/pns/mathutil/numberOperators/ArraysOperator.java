@@ -17,6 +17,22 @@ public class ArraysOperator {
         return res;
     }
 
+    public static double[] convertToDouble(int[] input) {
+        double[] res = new double[input.length];
+        for (int k = 0; k < input.length; k++) {
+            res[k] = input[k];
+        }
+        return res;
+    }
+
+    public static double[] convertToDouble(long[] input) {
+        double[] res = new double[input.length];
+        for (int k = 0; k < input.length; k++) {
+            res[k] = input[k];
+        }
+        return res;
+    }
+
     public static List<Number> convertToNumbers(List<Long> input) {
         return input.stream()
                 .map(v -> v + "")

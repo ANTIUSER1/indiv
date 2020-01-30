@@ -1,28 +1,28 @@
 package pns.mathutil.algebra.algebraCommutative.matrOperators;
 
-import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
-import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomeMatrix;
-import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomeVector;
+import pns.mathutil.algebra.algebraCommutative.matrStructs.Polynom;
+import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomMatrix;
+import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomVector;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MatrixPolynomeUtils {
-    public static PolynomialFunction initPF() {
+    public static Polynom initPF() {
         double[] d = {0};
-        return new PolynomialFunction(d);
+        return new Polynom(d);
     }
 
-    public static PolynomialFunction[] initPF(int dim) {
-        PolynomialFunction[] res = new PolynomialFunction[dim];
+    public static Polynom[] initPF(int dim) {
+        Polynom[] res = new Polynom[dim];
         for (int k = 0; k < res.length; k++) {
             res[k] = initPF();
         }
         return res;
     }
 
-    public static PolynomialFunction[][] initPF(int R, int C) {
-        PolynomialFunction[][] res = new PolynomialFunction[R][C];
+    public static Polynom[][] initPF(int R, int C) {
+        Polynom[][] res = new Polynom[R][C];
         for (int k = 0; k < R; k++) {
             for (int n = 0; n < C; n++) {
                 res[k][n] = initPF();
@@ -31,16 +31,16 @@ public class MatrixPolynomeUtils {
         return res;
     }
 
-    public static PolynomeVector matrMult(
-            PolynomeMatrix A, PolynomeVector X
+    public static PolynomVector matrMult(
+            PolynomMatrix A, PolynomVector X
     ) {
-        PolynomeVector res = new PolynomeVector(X.getR());
-        PolynomialFunction[] resVal = res.getVector();
+        PolynomVector res = new PolynomVector(X.getR());
+        Polynom[] resVal = res.getVector();
         for (int i = 0; i < A.getR(); i++) {
-            PolynomialFunction elem = res.getZero();
+            Polynom elem = res.getZero();
             for (int j = 0; j < A.getC(); j++) {
                 elem = elem.add(A.getMatrix()[i][j].multiply(X.getVector()[i]));
-                PolynomialFunction tmp = resVal[j];
+                Polynom tmp = resVal[j];
                 tmp.add(elem);
             }
             res.setVectorComponent(elem, i);
@@ -48,27 +48,27 @@ public class MatrixPolynomeUtils {
         return res;
     }
 
-    public static PolynomeMatrix matrMult(
-            PolynomeMatrix A, PolynomeMatrix B
+    public static PolynomMatrix matrMult(
+            PolynomMatrix A, PolynomMatrix B
     ) throws Exception {
-        PolynomialFunction[][] mat = initPF(A.getR(), B.getC());
+        Polynom[][] mat = initPF(A.getR(), B.getC());
         for (int i = 0; i < A.getR(); i++) {
             for (int j = 0; j < B.getC(); j++) {
-                PolynomialFunction[] a = extractRow(A, i);
+                Polynom[] a = extractRow(A, i);
 
-                PolynomialFunction[] b = extractCol(B, j);
+                Polynom[] b = extractCol(B, j);
                 mat[i][j] = scalarProduct(a, b);
             }
         }
-        PolynomeMatrix res = new PolynomeMatrix(A.getR(), B.getC());
+        PolynomMatrix res = new PolynomMatrix(A.getR(), B.getC());
         res.setMatrix(mat);
         return res;
     }
 
-    public static PolynomeMatrix extractMinor(PolynomeMatrix M, int r, int c) {
-        PolynomeMatrix res = new PolynomeMatrix(M.getR() - 1, M.getC() - 1);
-        PolynomialFunction[][] resPM = res.getMatrix();
-        PolynomialFunction[][] pm = M.getMatrix();
+    public static PolynomMatrix extractMinor(PolynomMatrix M, int r, int c) {
+        PolynomMatrix res = new PolynomMatrix(M.getR() - 1, M.getC() - 1);
+        Polynom[][] resPM = res.getMatrix();
+        Polynom[][] pm = M.getMatrix();
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
                 System.out.println(i + "     " + j);
@@ -91,48 +91,47 @@ public class MatrixPolynomeUtils {
         return res;
     }
 
-    public static PolynomialFunction determinant(PolynomeMatrix M) {
+    public static Polynom determinant(PolynomMatrix M) {
         if (M.getC() == M.getR()) {
-            PolynomialFunction res = initPF();
-            PolynomialFunction[][] pm = M.getMatrix();
+            Polynom res = initPF();
+            Polynom[][] pm = M.getMatrix();
             if (M.getC() == 1) return pm[0][0];
             for (int k = 0; k < M.getC(); k++) {
                 double[] unit = {1};
                 if (k % 2 == 1) {
                     unit[0] = -1;
                 }
-                PolynomialFunction U = new PolynomialFunction(unit);
-                PolynomialFunction coef = pm[0][k].multiply(U);
-                PolynomeMatrix AlgDop = extractMinor(M, 0, k);
+                Polynom U = new Polynom(unit);
+                Polynom coef = pm[0][k].multiply(U);
+                PolynomMatrix AlgDop = extractMinor(M, 0, k);
                 res = res.add(coef.multiply(determinant(AlgDop)));
-
             }
             return res;
         }
         return null;
     }
 
-    public static PolynomialFunction det2X2(PolynomeMatrix M) {
+    public static Polynom det2X2(PolynomMatrix M) {
         if (M.getC() == 2 && M.getR() == 2) {
-            PolynomialFunction[][] pm = M.getMatrix();
-            PolynomialFunction mainD = pm[0][0].multiply(pm[1][1]);
-            PolynomialFunction slaveD = pm[0][1].multiply(pm[1][0]).negate();
+            Polynom[][] pm = M.getMatrix();
+            Polynom mainD = pm[0][0].multiply(pm[1][1]);
+            Polynom slaveD = pm[0][1].multiply(pm[1][0]).negate();
             return mainD.add(slaveD);
         }
         return null;
     }
 
-    public static PolynomialFunction[] extractRow(
-            PolynomeMatrix A, int k
+    public static Polynom[] extractRow(
+            PolynomMatrix A, int k
     ) {
         return A.getMatrix()[k];
     }
 
-    public static PolynomialFunction[] extractCol(
-            PolynomeMatrix A, int c
+    public static Polynom[] extractCol(
+            PolynomMatrix A, int c
     ) {
 
-        PolynomialFunction[] res = initPF(A.getR());
+        Polynom[] res = initPF(A.getR());
         for (int k = 0; k < A.getR(); k++) {
             try {
                 res[k] = A.getMatrix()[k][c];
@@ -142,15 +141,15 @@ public class MatrixPolynomeUtils {
         return res;
     }
 
-    public static PolynomialFunction scalarProduct(PolynomialFunction[] v1, PolynomialFunction[] v2) throws Exception {
+    public static Polynom scalarProduct(Polynom[] v1, Polynom[] v2) throws Exception {
         if (v1.length != v2.length || v1.length * v2.length == 0) {
             throw new Exception();
         }
         double[] d = {0};
-        PolynomialFunction res = new PolynomialFunction(d);
-        List<PolynomialFunction> pfList = new ArrayList<>();
+        Polynom res = new Polynom(d);
+        List<Polynom> pfList = new ArrayList<>();
         for (int k = 0; k < v1.length; k++) {
-            PolynomialFunction tmp = v1[k].multiply(v2[k]);
+            Polynom tmp = v1[k].multiply(v2[k]);
             res = res.add(v1[k].multiply(v2[k]));
         }
         return res;
