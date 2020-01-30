@@ -1,15 +1,15 @@
 package pns.mathutil.start;
 
-import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
-import pns.mathutil.algebra.algebraCommutative.matrOperators.MatrixPolynomeUtils;
-import pns.mathutil.mtc.matrOperators.MatrixBuilder;
-import pns.mathutil.mtc.matrOperators.PolynomeMatrix;
+import pns.mathutil.numberOperators.ArraysOperator;
 
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        PolynomialFunction[] pfArray = MatrixPolynomeUtils.initPF(5);
-
+        //       PolynomialFunction[] pfArray = MatrixPolynomeUtils.initPF(5);
+        long[] db = ArraysOperator.createRandomLong(3);
+        for (Long dd : db) {
+            System.out.println(dd);
+        }
 //        SimplePolynome sp = new SimplePolynome(5);
 //        System.out.println(sp.getPolynom());
 //        System.out.println();
@@ -73,14 +73,14 @@ public class Main {
 //        PolynomialFunction pp = new PolynomialFunction(d);
 //        System.out.println(pp + "     " + pp.multiply(pp0));
 //
-        MatrixBuilder mb = new MatrixBuilder();
-        double[] d0 = {103, -98, 97, -100, 112, -110, 105, -109, 75, -86};
-        PolynomialFunction pptr = new PolynomialFunction(d0);
-        PolynomeMatrix m = mb.createMatr2X2Special1OnePolynome(pptr, 2);
-        System.out.println(m);
-//
-        PolynomialFunction pf = MatrixPolynomeUtils.determinant(m);
-        System.out.println("     DET:  " + pf);
+//        MatrixBuilder mb = new MatrixBuilder();
+//        double[] d0 = {103, -98, 97, -100, 112, -110, 105, -109, 75, -86};
+//        PolynomialFunction pptr = new PolynomialFunction(d0);
+//        PolynomeMatrix m = mb.createMatr2X2Special1OnePolynome(pptr, 2);
+//        System.out.println(m);
+////
+//        PolynomialFunction pf = MatrixPolynomeUtils.determinant(m);
+//        System.out.println("     DET:  " + pf);
     }
 
 

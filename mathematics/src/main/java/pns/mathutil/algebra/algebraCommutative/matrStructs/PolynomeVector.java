@@ -1,7 +1,7 @@
-package pns.mathutil.algebra.algebraCommutative.matrOperators;
+package pns.mathutil.algebra.algebraCommutative.matrStructs;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
-import pns.mathutil.mtc.numberOperators.ArraysOperator;
+import pns.mathutil.numberOperators.ArraysOperator;
 
 public class PolynomeVector {
     private PolynomialFunction[] vector;
@@ -83,7 +83,7 @@ public class PolynomeVector {
 
     private void fillByRnd(int r, int deg) {
         for (int k = 0; k < r; k++) {
-            vector[k] = new PolynomialFunction(ArraysOperator.rand(deg));
+            vector[k] = new PolynomialFunction(ArraysOperator.createRandomDouble(deg));
         }
     }
 

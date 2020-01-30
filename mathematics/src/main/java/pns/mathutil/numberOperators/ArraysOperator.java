@@ -1,4 +1,4 @@
-package pns.mathutil.mtc.numberOperators;
+package pns.mathutil.numberOperators;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -31,6 +31,7 @@ public class ArraysOperator {
                 .toArray();
     }
 
+
     public static double[] createFromList(List<Number> input) {
         return input.stream()
                 .mapToDouble(v -> v.doubleValue())
@@ -38,12 +39,29 @@ public class ArraysOperator {
     }
 
 
-    public static double[] rand(int N) {
-        double[] res = new double[N];
-        for (int k = 0; k < N; k++) {
-            res[k] = Math.round(sr.nextDouble() * 10);
+    public static double[] createRandomDouble(int input) {
+        double[] res = new double[input];
+        for (int k = 0; k < res.length; k++) {
+            res[k] = sr.nextDouble();
         }
         return res;
     }
+
+    public static int[] createRandomInt(int input) {
+        int[] res = new int[input];
+        for (int k = 0; k < res.length; k++) {
+            res[k] = sr.nextInt();
+        }
+        return res;
+    }
+
+    public static long[] createRandomLong(int input) {
+        long[] res = new long[input];
+        for (int k = 0; k < res.length; k++) {
+            res[k] = sr.nextLong();
+        }
+        return res;
+    }
+
 
 }

@@ -2,6 +2,7 @@ package pns.mathutil.mtc.matrOperators;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import pns.mathutil.algebra.algebraCommutative.matrOperators.MatrixPolynomeUtils;
+import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomeMatrix;
 import pns.mathutil.mtc.polynomOperators.PolynomeBuilder;
 
 public class MatrixBuilder {

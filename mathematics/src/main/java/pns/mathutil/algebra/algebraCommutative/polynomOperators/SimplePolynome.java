@@ -1,7 +1,7 @@
 package pns.mathutil.mtc.polynomOperators;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
-import pns.mathutil.mtc.numberOperators.ArraysOperator;
+import pns.mathutil.numberOperators.ArraysOperator;
 import pns.pingremote.Pingator;
 
 import java.util.List;

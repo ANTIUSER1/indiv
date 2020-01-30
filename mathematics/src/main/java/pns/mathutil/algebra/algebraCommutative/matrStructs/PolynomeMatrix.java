@@ -1,8 +1,9 @@
-package pns.mathutil.mtc.matrOperators;
+package pns.mathutil.algebra.algebraCommutative.matrStructs;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import pns.mathutil.algebra.algebraCommutative.matrOperators.MatrixPolynomeUtils;
-import pns.mathutil.mtc.numberOperators.ArraysOperator;
+import pns.mathutil.numberOperators.ArraysOperator;
+
 
 public class PolynomeMatrix {
     private PolynomialFunction[][] matrix;
@@ -87,7 +88,7 @@ public class PolynomeMatrix {
     private void fillByRnd(int r, int c, int deg) {
         for (int k = 0; k < r; k++) {
             for (int n = 0; n < c; n++) {
-                matrix[k][n] = new PolynomialFunction(ArraysOperator.rand(deg));
+                matrix[k][n] = new PolynomialFunction(ArraysOperator.createRandomDouble(deg));
             }
         }
     }
