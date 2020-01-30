@@ -6,13 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PolynomeBuilder {
-    public PolynomialFunction buildResult(List<Double> d) {
-        if (d.isEmpty()) return null;
-        double[] dd = new double[d.size()];
-        for (int k = 0; k < dd.length; k++) dd[k] = d.get(k);
-        PolynomialFunction res = new PolynomialFunction(dd);
-        return res;
-    }
+
 
     public PolynomialFunction buildResultPower(PolynomialFunction p, int power) {
         if (power == 0) {
@@ -48,17 +42,6 @@ public class PolynomeBuilder {
             res = res.add(ppf);
         }
 
-//
-//
-//        PolynomialFunction rr = new PolynomialFunction(u);
-//        pfl.add(q);
-//        for (int k = 1; k <= power; k++) {
-//            q = buildResultPower(p, k);
-//            pfl.add(q);
-//        }
-//        for (int k = 0; k < pfl.size(); k++) {
-//            zz = zz.add(pfl.get(k));
-        //  }
         return res;
     }
 

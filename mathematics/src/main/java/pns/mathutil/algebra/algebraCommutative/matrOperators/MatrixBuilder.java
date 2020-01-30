@@ -70,19 +70,23 @@ public class MatrixBuilder {
         return res;
     }
 
-    @Deprecated
-    public PolynomeMatrix createMatr2X2fromOnePolynome0(PolynomialFunction pf) {
-        PolynomialFunction[][] matrix = MatrixPolynomeUtils.initPF(2, 2);
-        double[] U = {1};
-        PolynomialFunction unit = new PolynomialFunction(U);
 
-        matrix[0][0] = pf;
-        matrix[1][1] = pf;
-        matrix[0][1] = pf.add(unit);
-        matrix[1][0] = pf.add(unit.negate());
-        PolynomeMatrix res = new PolynomeMatrix(2, 2);
-        res.setMatrix(matrix);
-        return res;
+    public PolynomeMatrix createMatr2X2DegeneratePolynome(PolynomialFunction pf, int dim) {
+        PolynomialFunction[][] matrix = MatrixPolynomeUtils.initPF(dim, dim);
+        PolynomeBuilder pb = new PolynomeBuilder();
+
+        PolynomialFunction[] pfm = new PolynomialFunction[dim];
+        PolynomialFunction[] pfm1 = new PolynomialFunction[dim];
+        for (int k = 0; k < dim; k++) {
+            int pw = k % 3;
+            pfm[k] = pb.buildResultPower(pf, pw);
+        }
+        for (int k = 0; k < dim; k++) {
+            int pw = k % 4;
+            pfm1[k] = pb.buildResultPower(pf, pw);
+        }
+
+        return null;
     }
 
     private int countNewCols(PolynomeMatrix[] blocks) {
