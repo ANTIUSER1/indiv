@@ -43,7 +43,17 @@ public class Polynom extends PolynomialFunction {
         mod = modul;
     }
 
-    public Polynom reduce(Polynom p) {
+    public Polynom rround() {
+        double[] cf = ArraysOperator.round(getCoefficients());
+        return new Polynom(cf, mod);
+    }
+
+    public Polynom rround(double m) {
+        double[] cf = ArraysOperator.round(getCoefficients());
+        return new Polynom(cf, m);
+    }
+
+    public Polynom reduce() {
         return new Polynom(this.getCoefficients(), mod);
     }
 
@@ -58,7 +68,13 @@ public class Polynom extends PolynomialFunction {
     public Polynom multiply(Polynom p) {
         PolynomialFunction prod = getProductPolynomialFunction(p);
 
-        return new Polynom(prod.getCoefficients(), mod);
+        return new Polynom(prod.getCoefficients());
+    }
+
+    public Polynom multiply(Polynom p, double m) {
+        PolynomialFunction prod = getProductPolynomialFunction(p);
+
+        return new Polynom(prod.getCoefficients(), m);
     }
 
     public Polynom negate() {
@@ -74,25 +90,48 @@ public class Polynom extends PolynomialFunction {
     }
 
     public PolynomialFunction getProductPolynomialFunction(Polynom p) {
-        double[] thc = ReducerArrays.reduceMod(getCoefficients(), this.mod);
-        double[] pc = ReducerArrays.reduceMod(p.getCoefficients(), p.mod);
-        PolynomialFunction th = new PolynomialFunction(thc);
-        PolynomialFunction ph = new PolynomialFunction(pc);
+//        double[] thc = ReducerArrays.reduceMod(getCoefficients() );
+//        double[] pc = ReducerArrays.reduceMod(p.getCoefficients() );
+        PolynomialFunction th = new PolynomialFunction(getCoefficients());
+        PolynomialFunction ph = new PolynomialFunction(p.getCoefficients());
 
         return th.multiply(ph);
     }
 
     public PolynomialFunction getSummPolynomialFunction(Polynom p) {
-        double[] thc = ReducerArrays.reduceMod(getCoefficients(), this.mod);
-        double[] pc = ReducerArrays.reduceMod(p.getCoefficients(), p.mod);
-        PolynomialFunction th = new PolynomialFunction(thc);
-        PolynomialFunction ph = new PolynomialFunction(pc);
+        PolynomialFunction th = new PolynomialFunction(getCoefficients());
+        PolynomialFunction ph = new PolynomialFunction(p.getCoefficients());
 
         return th.add(ph);
     }
 
     public Polynom add(Polynom p) {
         PolynomialFunction prod = getSummPolynomialFunction(p);
+
+        return new Polynom(prod.getCoefficients());
+    }
+
+
+    public PolynomialFunction getProductPolynomialFunction(Polynom p, double mod) {
+        double[] thc = ReducerArrays.reduceMod(getCoefficients(), mod);
+        double[] pc = ReducerArrays.reduceMod(p.getCoefficients(), mod);
+        PolynomialFunction th = new PolynomialFunction(thc);
+        PolynomialFunction ph = new PolynomialFunction(pc);
+
+        return th.multiply(ph);
+    }
+
+    public PolynomialFunction getSummPolynomialFunction(Polynom p, double m) {
+        double[] thc = ReducerArrays.reduceMod(getCoefficients(), m);
+        double[] pc = ReducerArrays.reduceMod(p.getCoefficients(), m);
+        PolynomialFunction th = new PolynomialFunction(thc);
+        PolynomialFunction ph = new PolynomialFunction(pc);
+
+        return th.add(ph);
+    }
+
+    public Polynom add(Polynom p, double mod) {
+        PolynomialFunction prod = getSummPolynomialFunction(p, mod);
 
         return new Polynom(prod.getCoefficients(), mod);
     }

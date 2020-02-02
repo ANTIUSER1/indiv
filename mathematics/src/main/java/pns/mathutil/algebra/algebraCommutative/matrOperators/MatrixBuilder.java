@@ -53,12 +53,14 @@ public class MatrixBuilder {
         return null;
     }
 
-    public PolynomMatrix createMatr2X2Special1OnePolynome(Polynom pf, int degMain) {
+    public PolynomMatrix createMatr2X2Special1(Polynom pf, int degMain) {
         double[] d = {1};
         Polynom U = new Polynom(d);
 
         PolynomeBuilder pb = new PolynomeBuilder();
+
         Polynom pf00 = pb.buildResultPower(pf, degMain);
+
         Polynom pf01 = pb.buildResultAsPowerSum(pf, 2 * degMain - 1);
 
         Polynom[][] matrix = MatrixPolynomeUtils.initPF(2, 2);

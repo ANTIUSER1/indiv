@@ -9,6 +9,14 @@ public class ArraysOperator {
 
     private static SecureRandom sr = new SecureRandom();
 
+    public static double[] round(double[] input) {
+        double[] res = new double[input.length];
+        for (int k = 0; k < input.length; k++) {
+            res[k] = Math.round(input[k]);
+        }
+        return res;
+    }
+
     public static double[] convertToDouble(byte[] input) {
         double[] res = new double[input.length];
         for (int k = 0; k < input.length; k++) {
@@ -59,6 +67,22 @@ public class ArraysOperator {
         double[] res = new double[input];
         for (int k = 0; k < res.length; k++) {
             res[k] = sr.nextDouble();
+        }
+        return res;
+    }
+
+    public static double[] createRandomDouble(int input, int mult, int mod) {
+        double[] res = new double[input];
+        for (int k = 0; k < res.length; k++) {
+            res[k] = (sr.nextDouble() * (mult * mult - 1) + mult) % mod;
+        }
+        return res;
+    }
+
+    public static double[] createRandomDouble(int input, int mult) {
+        double[] res = new double[input];
+        for (int k = 0; k < res.length; k++) {
+            res[k] = sr.nextDouble() * mult;
         }
         return res;
     }

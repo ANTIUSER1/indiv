@@ -94,6 +94,7 @@ public class MatrixPolynomeUtils {
     public static Polynom determinant(PolynomMatrix M) {
         if (M.getC() == M.getR()) {
             Polynom res = initPF();
+
             Polynom[][] pm = M.getMatrix();
             if (M.getC() == 1) return pm[0][0];
             for (int k = 0; k < M.getC(); k++) {
@@ -102,7 +103,7 @@ public class MatrixPolynomeUtils {
                     unit[0] = -1;
                 }
                 Polynom U = new Polynom(unit);
-                Polynom coef = pm[0][k].multiply(U);
+                Polynom coef = U.multiply(pm[0][k]);
                 PolynomMatrix AlgDop = extractMinor(M, 0, k);
                 res = res.add(coef.multiply(determinant(AlgDop)));
             }
@@ -111,11 +112,38 @@ public class MatrixPolynomeUtils {
         return null;
     }
 
+
+    public static Polynom determinant(PolynomMatrix M, double m) {
+        if (M.getC() == M.getR()) {
+            double[] unit = {1};
+            Polynom res = initPF();
+            Polynom[][] pm = M.getMatrix();
+            if (M.getC() == 1) return pm[0][0];
+            for (int k = 0; k < M.getC(); k++) {
+                if (k % 2 == 1) {
+                    unit[0] = -1;
+                }
+                Polynom U = new Polynom(unit);
+                Polynom coef = U.multiply(pm[0][k], m);
+                PolynomMatrix AlgDop = extractMinor(M, 0, k);
+                Polynom tmp = determinant(AlgDop, m);
+                //      System.out.println(m + "   " + k + "   " + tmp + "    " + coef + "      " + coef.multiply(tmp) + "      " + coef.multiply(tmp, m));
+                tmp = coef.multiply(tmp, m);
+                res = res.add(tmp, m);
+            }
+            return res;
+        }
+        return null;
+    }
+
+
     public static Polynom det2X2(PolynomMatrix M) {
         if (M.getC() == 2 && M.getR() == 2) {
             Polynom[][] pm = M.getMatrix();
             Polynom mainD = pm[0][0].multiply(pm[1][1]);
             Polynom slaveD = pm[0][1].multiply(pm[1][0]).negate();
+
+            System.out.println(mainD + "  <<----m   s---> " + slaveD);
             return mainD.add(slaveD);
         }
         return null;

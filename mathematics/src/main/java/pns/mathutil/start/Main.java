@@ -1,6 +1,9 @@
 package pns.mathutil.start;
 
+import pns.mathutil.algebra.algebraCommutative.matrOperators.MatrixPolynomeUtils;
 import pns.mathutil.algebra.algebraCommutative.matrStructs.Polynom;
+import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomMatrix;
+import pns.mathutil.mtc.matrOperators.MatrixBuilder;
 import pns.mathutil.numberOperators.ArraysOperator;
 import pns.mathutil.numberOperators.ReducerArrays;
 
@@ -10,7 +13,13 @@ public class Main {
 
         //arrayOperatorTest();
 
-        polynomArithmeticTest();
+
+        determinantTest();
+
+        //polynomArithmeticTest();
+
+
+        //matrixBuilderSpecial();
 
 //        SimplePolynome sp = new SimplePolynome(5);
 //        System.out.println(sp.getPolynom());
@@ -37,12 +46,6 @@ public class Main {
 
         // PolynomeVector vv = PolynomeUtils.matrMult(pm, vect);
         //System.out.println("vv  " + vv);
-
-//        PolynomeMatrix p0 = new PolynomeMatrix(2, 3, 1, true);
-//        PolynomeMatrix p1 = new PolynomeMatrix(8, 8, 3, true);
-//        System.out.println(p1);
-//        PolynomialFunction pf = PolynomeUtils.determinant(p1);
-//        System.out.println(pf);
 
 
 //        MatrixBuilder mb = new MatrixBuilder();
@@ -83,6 +86,30 @@ public class Main {
 ////
 //        PolynomialFunction pf = MatrixPolynomeUtils.determinant(m);
 //        System.out.println("     DET:  " + pf);
+    }
+
+    public static void determinantTest() {
+        PolynomMatrix p1 = new PolynomMatrix(3, 3, 1, 5, true);
+        p1 = p1.round(10);
+        System.out.println(p1);
+        Polynom pf = MatrixPolynomeUtils.determinant(p1, 5);
+        System.out.println(pf);
+        /*
+         0*()-1*(2-15)+1*(2-9)
+
+
+
+         */
+    }
+
+    public static void matrixBuilderSpecial() {
+        MatrixBuilder builder = new MatrixBuilder();
+        double[] cft = {0, 1};
+        Polynom polynom = new Polynom(cft);
+
+        System.out.println(polynom);
+        PolynomMatrix polynomMatrix = builder.createMatr2X2Special1(polynom, 2);
+        System.out.println(polynomMatrix);
     }
 
     public static void polynomArithmeticTest() {
