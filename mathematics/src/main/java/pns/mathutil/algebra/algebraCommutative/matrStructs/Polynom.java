@@ -83,8 +83,20 @@ public class Polynom extends PolynomialFunction {
         return new Polynom(neg.getCoefficients());
     }
 
+    public Polynom negate(double m) {
+        PolynomialFunction neg = getNegate();
+
+        return new Polynom(neg.getCoefficients());
+    }
+
     private PolynomialFunction getNegate() {
         double[] thc = getCoefficients();
+        PolynomialFunction th = new PolynomialFunction(thc);
+        return th.negate();
+    }
+
+    private PolynomialFunction getNegate(double m) {
+        double[] thc = ReducerArrays.reduceMod(getCoefficients(), m);
         PolynomialFunction th = new PolynomialFunction(thc);
         return th.negate();
     }
@@ -112,9 +124,9 @@ public class Polynom extends PolynomialFunction {
     }
 
 
-    public PolynomialFunction getProductPolynomialFunction(Polynom p, double mod) {
-        double[] thc = ReducerArrays.reduceMod(getCoefficients(), mod);
-        double[] pc = ReducerArrays.reduceMod(p.getCoefficients(), mod);
+    public PolynomialFunction getProductPolynomialFunction(Polynom p, double m) {
+        double[] thc = ReducerArrays.reduceMod(getCoefficients(), m);
+        double[] pc = ReducerArrays.reduceMod(p.getCoefficients(), m);
         PolynomialFunction th = new PolynomialFunction(thc);
         PolynomialFunction ph = new PolynomialFunction(pc);
 

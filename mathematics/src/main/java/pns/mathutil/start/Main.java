@@ -23,7 +23,9 @@ public class Main {
         //matrMultiplyTest();
 
 
-        matrixBuilderSpecial();
+//        matrixBuilderSpecial();
+
+        matrixInverseBuilderSpecial();
 
 
 //        SimplePolynome sp = new SimplePolynome(5);
@@ -93,6 +95,24 @@ public class Main {
 //        System.out.println("     DET:  " + pf);
     }
 
+    private static void matrixInverseBuilderSpecial() throws Exception {
+        MatrixBuilder builder = new MatrixBuilder();
+        double[] cft = {102, 195, 11, 92, 80, 102, 980, 91};
+        Polynom polynom = new Polynom(cft);
+
+        System.out.println(polynom);
+        PolynomMatrix polynomMatrix = builder.createMatr2X2Special1(polynom, 2, 7);
+        System.out.println(polynomMatrix);
+
+        PolynomMatrix polynomMatrixInv = builder.createInverseMatr2X2Special1(polynom, 2, 7);
+        System.out.println(polynomMatrix);
+
+        PolynomMatrix p = MatrixPolynomeUtils.matrMult(polynomMatrix, polynomMatrixInv, 7);
+
+        System.out.println(" p " + p);
+    }
+
+
     private static void polynomSpecialTest() {
         PolynomMatrix p1 = new PolynomMatrix(4, 4, 1, 30, true);
         PolynomeBuilder pb = new PolynomeBuilder();
@@ -128,13 +148,13 @@ public class Main {
 
     public static void matrixBuilderSpecial() {
         MatrixBuilder builder = new MatrixBuilder();
-        double[] cft = {0, 1};
+        double[] cft = {0, 1, 1};
         Polynom polynom = new Polynom(cft);
 
         System.out.println(polynom);
-        PolynomMatrix polynomMatrix = builder.createMatr2X2Special1(polynom, 7);
+        PolynomMatrix polynomMatrix = builder.createMatr2X2Special1(polynom, 1);
         System.out.println(polynomMatrix);
-        Polynom pf = MatrixPolynomeUtils.determinant(polynomMatrix, 65537);
+        Polynom pf = MatrixPolynomeUtils.determinant(polynomMatrix);
         System.out.println(pf);
     }
 

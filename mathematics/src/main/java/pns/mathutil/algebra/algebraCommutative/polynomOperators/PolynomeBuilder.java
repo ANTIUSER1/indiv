@@ -18,7 +18,6 @@ public class PolynomeBuilder {
             if (k == 1) res = p;
             else {
                 res = res.multiply(p);
-                System.out.println(p + "  <<--- p    res  --->>   " + res + "     k " + k);
             }
         }
         return res;
