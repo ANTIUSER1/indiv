@@ -1,9 +1,10 @@
 package pns.mathutil.start;
 
+import pns.mathutil.algebra.algebraCommutative.matrOperators.MatrixBuilder;
 import pns.mathutil.algebra.algebraCommutative.matrOperators.MatrixPolynomeUtils;
 import pns.mathutil.algebra.algebraCommutative.matrStructs.Polynom;
 import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomMatrix;
-import pns.mathutil.mtc.matrOperators.MatrixBuilder;
+import pns.mathutil.algebra.algebraCommutative.polynomOperators.PolynomeBuilder;
 import pns.mathutil.numberOperators.ArraysOperator;
 import pns.mathutil.numberOperators.ReducerArrays;
 
@@ -13,13 +14,17 @@ public class Main {
 
         //arrayOperatorTest();
 
-
-        determinantTest();
-
-        //polynomArithmeticTest();
+        //  polynomArithmeticTest();
 
 
-        //matrixBuilderSpecial();
+//        determinantTest();
+
+
+        //matrMultiplyTest();
+
+
+        matrixBuilderSpecial();
+
 
 //        SimplePolynome sp = new SimplePolynome(5);
 //        System.out.println(sp.getPolynom());
@@ -88,11 +93,30 @@ public class Main {
 //        System.out.println("     DET:  " + pf);
     }
 
+    private static void polynomSpecialTest() {
+        PolynomMatrix p1 = new PolynomMatrix(4, 4, 1, 30, true);
+        PolynomeBuilder pb = new PolynomeBuilder();
+
+    }
+
+    private static void matrMultiplyTest() throws Exception {
+        PolynomMatrix p1 = new PolynomMatrix(4, 4, 1, 30, true);
+        PolynomMatrix p2 = new PolynomMatrix(4, 4, 1, 30, true);
+        p1 = p1.round(10);
+        p2 = p2.round(10);
+        System.out.println(" p1  " + p1);
+        System.out.println(" p2 " + p2);
+
+        PolynomMatrix p = MatrixPolynomeUtils.matrMult(p1, p2, 10);
+
+        System.out.println(" p " + p);
+    }
+
     public static void determinantTest() {
-        PolynomMatrix p1 = new PolynomMatrix(3, 3, 1, 5, true);
+        PolynomMatrix p1 = new PolynomMatrix(3, 3, 100, 30, true);
         p1 = p1.round(10);
         System.out.println(p1);
-        Polynom pf = MatrixPolynomeUtils.determinant(p1, 5);
+        Polynom pf = MatrixPolynomeUtils.determinant(p1, 65537);
         System.out.println(pf);
         /*
          0*()-1*(2-15)+1*(2-9)
@@ -108,8 +132,10 @@ public class Main {
         Polynom polynom = new Polynom(cft);
 
         System.out.println(polynom);
-        PolynomMatrix polynomMatrix = builder.createMatr2X2Special1(polynom, 2);
+        PolynomMatrix polynomMatrix = builder.createMatr2X2Special1(polynom, 7);
         System.out.println(polynomMatrix);
+        Polynom pf = MatrixPolynomeUtils.determinant(polynomMatrix, 65537);
+        System.out.println(pf);
     }
 
     public static void polynomArithmeticTest() {

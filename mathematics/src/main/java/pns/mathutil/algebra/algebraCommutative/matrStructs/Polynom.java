@@ -80,11 +80,11 @@ public class Polynom extends PolynomialFunction {
     public Polynom negate() {
         PolynomialFunction neg = getNegate();
 
-        return new Polynom(neg.getCoefficients(), mod);
+        return new Polynom(neg.getCoefficients());
     }
 
     private PolynomialFunction getNegate() {
-        double[] thc = ReducerArrays.reduceMod(getCoefficients(), this.mod);
+        double[] thc = getCoefficients();
         PolynomialFunction th = new PolynomialFunction(thc);
         return th.negate();
     }

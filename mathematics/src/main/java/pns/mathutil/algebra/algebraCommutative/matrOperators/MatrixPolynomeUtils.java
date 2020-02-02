@@ -4,9 +4,6 @@ import pns.mathutil.algebra.algebraCommutative.matrStructs.Polynom;
 import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomMatrix;
 import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomVector;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MatrixPolynomeUtils {
     public static Polynom initPF() {
         double[] d = {0};
@@ -58,6 +55,24 @@ public class MatrixPolynomeUtils {
 
                 Polynom[] b = extractCol(B, j);
                 mat[i][j] = scalarProduct(a, b);
+            }
+        }
+        PolynomMatrix res = new PolynomMatrix(A.getR(), B.getC());
+        res.setMatrix(mat);
+        return res;
+    }
+
+
+    public static PolynomMatrix matrMult(
+            PolynomMatrix A, PolynomMatrix B, double m
+    ) throws Exception {
+        Polynom[][] mat = initPF(A.getR(), B.getC());
+        for (int i = 0; i < A.getR(); i++) {
+            for (int j = 0; j < B.getC(); j++) {
+                Polynom[] a = extractRow(A, i);
+
+                Polynom[] b = extractCol(B, j);
+                mat[i][j] = scalarProduct(a, b, m);
             }
         }
         PolynomMatrix res = new PolynomMatrix(A.getR(), B.getC());
@@ -175,10 +190,21 @@ public class MatrixPolynomeUtils {
         }
         double[] d = {0};
         Polynom res = new Polynom(d);
-        List<Polynom> pfList = new ArrayList<>();
         for (int k = 0; k < v1.length; k++) {
-            Polynom tmp = v1[k].multiply(v2[k]);
             res = res.add(v1[k].multiply(v2[k]));
+        }
+        return res;
+    }
+
+
+    public static Polynom scalarProduct(Polynom[] v1, Polynom[] v2, double m) throws Exception {
+        if (v1.length != v2.length || v1.length * v2.length == 0) {
+            throw new Exception();
+        }
+        double[] d = {0};
+        Polynom res = new Polynom(d);
+        for (int k = 0; k < v1.length; k++) {
+            res = res.add(v1[k].multiply(v2[k], m), m);
         }
         return res;
     }

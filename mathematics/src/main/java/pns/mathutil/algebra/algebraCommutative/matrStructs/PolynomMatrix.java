@@ -47,7 +47,6 @@ public class PolynomMatrix {
         R = r;
         this.matrix = new Polynom[r][c];
         fillByZero();
-        System.out.println(R + "   :::   " + C);
         if (isRandom) fillByRnd(deg, m);
     }
 

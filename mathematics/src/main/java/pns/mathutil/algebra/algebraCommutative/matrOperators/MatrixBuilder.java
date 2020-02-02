@@ -1,10 +1,10 @@
-package pns.mathutil.mtc.matrOperators;
+package pns.mathutil.algebra.algebraCommutative.matrOperators;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
-import pns.mathutil.algebra.algebraCommutative.matrOperators.MatrixPolynomeUtils;
 import pns.mathutil.algebra.algebraCommutative.matrStructs.Polynom;
 import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomMatrix;
-import pns.mathutil.mtc.polynomOperators.PolynomeBuilder;
+import pns.mathutil.algebra.algebraCommutative.polynomOperators.PolynomeBuilder;
+
 
 public class MatrixBuilder {
 
@@ -56,17 +56,35 @@ public class MatrixBuilder {
     public PolynomMatrix createMatr2X2Special1(Polynom pf, int degMain) {
         double[] d = {1};
         Polynom U = new Polynom(d);
-
         PolynomeBuilder pb = new PolynomeBuilder();
-
         Polynom pf00 = pb.buildResultPower(pf, degMain);
-
         Polynom pf01 = pb.buildResultAsPowerSum(pf, 2 * degMain - 1);
+        Polynom pf10 = U.negate().add(pf);
 
         Polynom[][] matrix = MatrixPolynomeUtils.initPF(2, 2);
         matrix[0][0] = pf00;
         matrix[0][1] = pf01;
-        matrix[1][0] = pf.add(U.negate());
+        matrix[1][0] = pf10;
+        matrix[1][1] = pf00;
+
+        PolynomMatrix res = new PolynomMatrix(2, 2);
+        res.setMatrix(matrix);
+        return res;
+    }
+
+
+    public PolynomMatrix createMatr2X2Special1(Polynom pf, int degMain, double m) {
+        double[] d = {1};
+        Polynom U = new Polynom(d);
+        PolynomeBuilder pb = new PolynomeBuilder();
+        Polynom pf00 = pb.buildResultPower(pf, degMain, m);
+        Polynom pf01 = pb.buildResultAsPowerSum(pf, 2 * degMain - 1, m);
+        Polynom pf10 = U.negate().add(pf, m);
+
+        Polynom[][] matrix = MatrixPolynomeUtils.initPF(2, 2);
+        matrix[0][0] = pf00;
+        matrix[0][1] = pf01;
+        matrix[1][0] = pf10;
         matrix[1][1] = pf00;
 
         PolynomMatrix res = new PolynomMatrix(2, 2);
