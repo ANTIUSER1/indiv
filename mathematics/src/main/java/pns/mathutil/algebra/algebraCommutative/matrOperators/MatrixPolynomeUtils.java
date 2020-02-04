@@ -2,7 +2,6 @@ package pns.mathutil.algebra.algebraCommutative.matrOperators;
 
 import pns.mathutil.algebra.algebraCommutative.matrStructs.Polynom;
 import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomMatrix;
-import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomVector;
 
 public class MatrixPolynomeUtils {
     public static Polynom initPF() {
@@ -28,22 +27,22 @@ public class MatrixPolynomeUtils {
         return res;
     }
 
-    public static PolynomVector matrMult(
-            PolynomMatrix A, PolynomVector X
-    ) {
-        PolynomVector res = new PolynomVector(X.getR());
-        Polynom[] resVal = res.getVector();
-        for (int i = 0; i < A.getR(); i++) {
-            Polynom elem = res.getZero();
-            for (int j = 0; j < A.getC(); j++) {
-                elem = elem.add(A.getMatrix()[i][j].multiply(X.getVector()[i]));
-                Polynom tmp = resVal[j];
-                tmp.add(elem);
-            }
-            res.setVectorComponent(elem, i);
-        }
-        return res;
-    }
+//    public static PolynomVector matrMult(
+//            PolynomMatrix A, PolynomVector X
+//    ) {
+//        PolynomVector res = new PolynomVector(X.getR());
+//        Polynom[] resVal = res.getVector();
+//        for (int i = 0; i < A.getR(); i++) {
+//            Polynom elem = res.getZero();
+//            for (int j = 0; j < A.getC(); j++) {
+//                elem = elem.add(A.getMatrix()[i][j].multiply(X.getVector()[i]));
+//                Polynom tmp = resVal[j];
+//                tmp.add(elem);
+//            }
+//            res.setVectorComponent(elem, i);
+//        }
+//        return res;
+//    }
 
     public static PolynomMatrix matrMult(
             PolynomMatrix A, PolynomMatrix B

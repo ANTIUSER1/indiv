@@ -1,6 +1,5 @@
 package pns.mathutil.algebra.algebraCommutative.matrOperators;
 
-import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import pns.mathutil.algebra.algebraCommutative.matrStructs.Polynom;
 import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomMatrix;
 import pns.mathutil.algebra.algebraCommutative.polynomOperators.PolynomeBuilder;
@@ -168,7 +167,7 @@ public class MatrixBuilder {
     }
 
 
-    public PolynomMatrix createMatr2X2DegeneratePolynome(PolynomialFunction pf, int dim) {
+    public PolynomMatrix createMatr2X2DegeneratePolynome(int R, int C) {
 
 
         return null;

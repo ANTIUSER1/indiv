@@ -7,6 +7,7 @@ import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomMatrix;
 import pns.mathutil.algebra.algebraCommutative.polynomOperators.PolynomeBuilder;
 import pns.mathutil.numberOperators.ArraysOperator;
 import pns.mathutil.numberOperators.ReducerArrays;
+import pns.mathutil.stringOperators.StrDataOperator;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -25,17 +26,34 @@ public class Main {
 //        matrixInverseBuilderSpecial();
 
         //   vectCreateTest();
-        vectMatrInvTest();
+
+//        vectMatrInvTest();
+
+        PolynomArrayTest();
+        //linCombTest();
+    }
+
+    private static void PolynomArrayTest() {
+    }
+
+    private static void linCombTest() {
+        System.out.println(StrDataOperator.rndString(42, 122, 5));
+        String a = StrDataOperator.rndString(42, 122, 3);
+        String b = StrDataOperator.rndString(42, 122, 3);
+        double[] a0 = ArraysOperator.convertToDouble(a.getBytes());
+        double[] acs0 = ArraysOperator.convertToDouble(b.getBytes());
+        Polynom[] p1 = new Polynom[2];
+        Polynom[] p2 = new Polynom[2];
 
     }
 
     private static void vectMatrInvTest() throws Exception {
 
         MatrixBuilder builder = new MatrixBuilder();
-        PolynomMatrix polynomMatrixVect = builder.createVectorMatr(2, 1, 7, true, true);
+        PolynomMatrix polynomMatrixVect = builder.createVectorMatr(2, 3, 7, true, true);
         System.out.println("  VECT  " + polynomMatrixVect);
 
-        double[] cft = {5};
+        double[] cft = {5, 2, -3};
         Polynom polynom = new Polynom(cft, 7);
         System.out.println(" polynom " + polynom);
         PolynomMatrix polynomMatrix = builder.createMatr2X2Special1(polynom, 1, 7);

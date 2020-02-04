@@ -65,6 +65,26 @@ public class PolynomeBuilder {
         return res;
     }
 
+    public Polynom LinCombination(Polynom[] p, Polynom[] pCoefs) {
+        double[] z = {0};
+        Polynom res = new Polynom(z);
+        if (p.length <= pCoefs.length) {
+
+            for (int k = 0; k < p.length; k++) {
+                Polynom t = p[k].multiply(pCoefs[k]);
+                res = res.add(t);
+            }
+            return res;
+        } else {
+            for (int k = 0; k < pCoefs.length; k++) {
+                Polynom t = p[k].multiply(pCoefs[k]);
+                res = res.add(t);
+            }
+
+            return res;
+        }
+    }
+
     public Polynom buildResultAsPowerSum(Polynom p, int power, double m) {
         double[] z = {0};
         double[] u = {1};
