@@ -32,22 +32,22 @@ public class Main {
     private static void vectMatrInvTest() throws Exception {
 
         MatrixBuilder builder = new MatrixBuilder();
-        PolynomMatrix polynomMatrixVect = builder.createVectorMatr(2, 1, true, true);
+        PolynomMatrix polynomMatrixVect = builder.createVectorMatr(2, 1, 7, true, true);
         System.out.println("  VECT  " + polynomMatrixVect);
 
         double[] cft = {5};
-        Polynom polynom = new Polynom(cft);
+        Polynom polynom = new Polynom(cft, 7);
         System.out.println(" polynom " + polynom);
-        PolynomMatrix polynomMatrix = builder.createMatr2X2Special1(polynom, 1);
+        PolynomMatrix polynomMatrix = builder.createMatr2X2Special1(polynom, 1, 7);
         System.out.println("  2x2 spec " + polynomMatrix);
 
-        PolynomMatrix polynomMatrixInv = builder.createInverseMatr2X2Special1(polynom, 1);
+        PolynomMatrix polynomMatrixInv = builder.createInverseMatr2X2Special1(polynom, 1, 7);
         System.out.println("spec inv " + polynomMatrixInv);
 
-        PolynomMatrix p = MatrixPolynomeUtils.matrMult(polynomMatrix, polynomMatrixVect);
+        PolynomMatrix p = MatrixPolynomeUtils.matrMult(polynomMatrix, polynomMatrixVect, 7);
         System.out.println(" p " + p);
         System.out.println("  VECT  " + polynomMatrixVect);
-        PolynomMatrix p0 = MatrixPolynomeUtils.matrMult(polynomMatrixInv, p);
+        PolynomMatrix p0 = MatrixPolynomeUtils.matrMult(polynomMatrixInv, p, 7);
         System.out.println(" p0 " + p0);
 
     }

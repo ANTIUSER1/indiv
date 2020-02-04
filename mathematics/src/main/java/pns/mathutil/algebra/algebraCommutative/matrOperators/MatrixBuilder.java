@@ -20,6 +20,17 @@ public class MatrixBuilder {
         return res;
     }
 
+    public PolynomMatrix createVectorMatr(int R, int deg, double m, boolean isRandom) {
+        PolynomMatrix res = new PolynomMatrix(R, 1, deg, m, isRandom);
+        return res;
+    }
+
+    public PolynomMatrix createVectorMatr(int R, int deg, double m, boolean isRandom, boolean mustRound) {
+        PolynomMatrix res = new PolynomMatrix(R, 1, deg, m, isRandom);
+        if (mustRound) res = res.round(10);
+        return res;
+    }
+
     public PolynomMatrix createVectorMatr(int R, int deg, boolean isRandom, boolean mustRound) {
         PolynomMatrix res = new PolynomMatrix(R, 1, deg, isRandom);
         if (mustRound) res = res.round(10);
