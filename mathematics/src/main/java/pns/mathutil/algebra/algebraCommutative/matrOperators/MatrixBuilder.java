@@ -8,6 +8,29 @@ import pns.mathutil.algebra.algebraCommutative.polynomOperators.PolynomeBuilder;
 
 public class MatrixBuilder {
 
+    public PolynomMatrix createVectorMatr(int R) {
+        PolynomMatrix res = new PolynomMatrix(R, 1);
+        Polynom[][] matr = MatrixPolynomeUtils.initPF(R, 1);
+        res.setMatrix(matr);
+        return res;
+    }
+
+    public PolynomMatrix createVectorMatr(int R, int deg, boolean isRandom) {
+        PolynomMatrix res = new PolynomMatrix(R, 1, deg, isRandom);
+        return res;
+    }
+
+    public PolynomMatrix createVectorMatr(int R, int deg, boolean isRandom, boolean mustRound) {
+        PolynomMatrix res = new PolynomMatrix(R, 1, deg, isRandom);
+        if (mustRound) res = res.round(10);
+        return res;
+    }
+
+    public PolynomMatrix createVectorMatr(Polynom[][] p) {
+        PolynomMatrix res = new PolynomMatrix(p);
+        return res;
+    }
+
     public PolynomMatrix buildVeticalFromBlocks(PolynomMatrix[] blocks) {
         if (blocsAreVerticalValid(blocks)) {
             int C = blocks[0].getC();
