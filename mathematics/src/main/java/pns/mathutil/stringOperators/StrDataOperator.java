@@ -39,4 +39,28 @@ public class StrDataOperator {
         }
         return res;
     }
+
+    public static String[][] rndStringDoubleArray(int a, int b, int lenX, int lenY, int deg) {
+        String[][] res = new String[lenX][lenY];
+        for (int k = 0; k < lenX; k++) {
+            for (int m = 0; m < lenY; m++) {
+                res[k][m] = rndString(a, b, deg);
+            }
+        }
+        return res;
+    }
+
+
+    public static String[][] rndStringDoubleArray(int a, int b, int lenX, int lenY) {
+        String[][] res = new String[lenX][lenY];
+        for (int k = 0; k < lenX; k++) {
+            for (int m = 0; m < lenY; m++) {
+                int deg = Rnd.rndIntegerBetween(6, 15);
+                res[k][m] = rndString(a, b, deg);
+            }
+        }
+        return res;
+    }
+
+
 }

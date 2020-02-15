@@ -6,6 +6,7 @@ import pns.mathutil.algebra.algebraCommutative.matrStructs.Polynom;
 import pns.mathutil.algebra.algebraCommutative.matrStructs.PolynomMatrix;
 import pns.mathutil.algebra.algebraCommutative.polynomOperators.PolynomeBuilder;
 import pns.mathutil.numberOperators.ArraysOperator;
+import pns.mathutil.numberOperators.Reducer;
 import pns.mathutil.numberOperators.ReducerArrays;
 import pns.mathutil.stringOperators.StrDataOperator;
 
@@ -27,25 +28,77 @@ public class Main {
 
         //   vectCreateTest();
 
-//        vectMatrInvTest();
+        //vectMatrInvTest();
 
-        PolynomArrayTest();
-        //linCombTest();
+        //   PolynomArrayTest();
+
+        //matrFromStrTest();
+
+        make2x2MatrInvFromStr();
+
+        double dd = 1.2278944112558;
+        System.out.println(Reducer.roundAccuracy(dd));
     }
 
+    private static void make2x2MatrInvFromStr() throws Exception {
+        String sa = StrDataOperator.rndString(42, 126, 3);
+        Polynom polynom = new Polynom(sa);
+        System.out.println("     polynom  " + polynom);
+
+        MatrixBuilder builder = new MatrixBuilder();
+        String[][] strVect = StrDataOperator.rndStringDoubleArray(10, 100, 2, 2, 2);
+        PolynomMatrix polynomMatrixVect = builder.createMatr(strVect);
+
+        System.out.println("  VECT  " + polynomMatrixVect);
+
+        PolynomMatrix polynomMatrix = builder.createMatr2X2Special1(polynom, 2);
+        System.out.println("  2x2 spec " + polynomMatrix);
+
+        PolynomMatrix polynomMatrixInv = builder.createInverseMatr2X2Special1(polynom, 2);
+        System.out.println("spec inv " + polynomMatrixInv);
+
+        PolynomMatrix p = MatrixPolynomeUtils.matrMult(polynomMatrix, polynomMatrixVect);
+        System.out.println(" p " + p);
+        System.out.println("  VECT  " + polynomMatrixVect);
+        PolynomMatrix p0 = MatrixPolynomeUtils.matrMult(polynomMatrixInv, p);
+        System.out.println(" p0 " + p0);
+
+        PolynomMatrix ep0 = MatrixPolynomeUtils.matrMult(polynomMatrixInv, polynomMatrix);
+        System.out.println(" ep0 " + ep0);
+
+    }
+
+    private static void matrFromStrTest() throws Exception {
+        String[][] s1 = StrDataOperator.rndStringDoubleArray(-255, 255, 2, 2, 2);
+        String[][] s2 = StrDataOperator.rndStringDoubleArray(-255, 255, 2, 2, 3);
+        MatrixBuilder mb = new MatrixBuilder();
+        PolynomMatrix pm1 = mb.createMatr(s1, 0.02);
+        System.out.println(pm1);
+        PolynomMatrix pm2 = mb.createMatr(s2, .02);
+        System.out.println(pm2);
+        PolynomMatrix pr = MatrixPolynomeUtils.matrMult(pm1, pm2);
+        System.out.println(pr);
+
+    }
+
+    /**
+     * далее надо сделать матрицу из строк
+     */
     private static void PolynomArrayTest() {
+        String[] sa1 = StrDataOperator.rndStringArray(42, 122, 5, 3);
+        String[] sa2 = StrDataOperator.rndStringArray(42, 122, 5, 3);
+        Polynom[] p1 = new Polynom[sa1.length];
+        Polynom[] p2 = new Polynom[sa1.length];
+        for (int k = 0; k < sa1.length; k++) {
+            p1[k] = new Polynom(sa1[k]);
+            p2[k] = new Polynom(sa2[k]);
+            System.out.println(p1[k] + "      " + p2[k]);
+        }
+        PolynomeBuilder pb = new PolynomeBuilder();
+        Polynom rr = pb.linCombination(p1, p2);
+        System.out.println(rr);
     }
 
-    private static void linCombTest() {
-        System.out.println(StrDataOperator.rndString(42, 122, 5));
-        String a = StrDataOperator.rndString(42, 122, 3);
-        String b = StrDataOperator.rndString(42, 122, 3);
-        double[] a0 = ArraysOperator.convertToDouble(a.getBytes());
-        double[] acs0 = ArraysOperator.convertToDouble(b.getBytes());
-        Polynom[] p1 = new Polynom[2];
-        Polynom[] p2 = new Polynom[2];
-
-    }
 
     private static void vectMatrInvTest() throws Exception {
 

@@ -4,11 +4,20 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.exception.NoDataException;
 import org.apache.commons.math3.exception.NullArgumentException;
 import pns.mathutil.numberOperators.ArraysOperator;
+import pns.mathutil.numberOperators.Reducer;
 import pns.mathutil.numberOperators.ReducerArrays;
 
 public class Polynom extends PolynomialFunction {
 
-    private double mod = 1;
+    private double mod = 0.5;
+
+    public Polynom(String c) throws NullArgumentException, NoDataException {
+        super(ArraysOperator.convertToDouble(c));
+    }
+
+    public Polynom(String c, double coeff) throws NullArgumentException, NoDataException {
+        super(ArraysOperator.convertToDouble(c, coeff));
+    }
 
     public Polynom(byte[] c) throws NullArgumentException, NoDataException {
         super(ArraysOperator.convertToDouble(c));
@@ -66,9 +75,18 @@ public class Polynom extends PolynomialFunction {
     }
 
     public Polynom multiply(Polynom p) {
-        PolynomialFunction prod = getProductPolynomialFunction(p);
+        PolynomialFunction prod = getProductPolynomialFunction(p, Integer.MAX_VALUE);
 
         return new Polynom(prod.getCoefficients());
+    }
+
+    public Polynom makeAcuracy() {
+        double[] dd = getCoefficients();
+        for (int k = 0; k < dd.length; k++) {
+            dd[k] = Reducer.roundAccuracy(getCoefficients()[k]);
+
+        }
+        return new Polynom(dd);
     }
 
     public Polynom multiply(Polynom p, double m) {
@@ -78,13 +96,13 @@ public class Polynom extends PolynomialFunction {
     }
 
     public Polynom negate() {
-        PolynomialFunction neg = getNegate();
+        PolynomialFunction neg = getNegate(Integer.MAX_VALUE);
 
-        return new Polynom(neg.getCoefficients());
+        return new Polynom(neg.getCoefficients()).makeAcuracy();
     }
 
     public Polynom negate(double m) {
-        PolynomialFunction neg = getNegate();
+        PolynomialFunction neg = getNegate(m);
 
         return new Polynom(neg.getCoefficients());
     }
@@ -102,8 +120,6 @@ public class Polynom extends PolynomialFunction {
     }
 
     public PolynomialFunction getProductPolynomialFunction(Polynom p) {
-//        double[] thc = ReducerArrays.reduceMod(getCoefficients() );
-//        double[] pc = ReducerArrays.reduceMod(p.getCoefficients() );
         PolynomialFunction th = new PolynomialFunction(getCoefficients());
         PolynomialFunction ph = new PolynomialFunction(p.getCoefficients());
 
@@ -118,7 +134,7 @@ public class Polynom extends PolynomialFunction {
     }
 
     public Polynom add(Polynom p) {
-        PolynomialFunction prod = getSummPolynomialFunction(p);
+        PolynomialFunction prod = getSummPolynomialFunction(p, Integer.MAX_VALUE);
 
         return new Polynom(prod.getCoefficients());
     }

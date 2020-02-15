@@ -69,7 +69,6 @@ public class MatrixPolynomeUtils {
         for (int i = 0; i < A.getR(); i++) {
             for (int j = 0; j < B.getC(); j++) {
                 Polynom[] a = extractRow(A, i);
-
                 Polynom[] b = extractCol(B, j);
                 mat[i][j] = scalarProduct(a, b, m);
             }
@@ -192,6 +191,7 @@ public class MatrixPolynomeUtils {
         for (int k = 0; k < v1.length; k++) {
             res = res.add(v1[k].multiply(v2[k]));
         }
+
         return res;
     }
 

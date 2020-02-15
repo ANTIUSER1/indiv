@@ -17,6 +17,35 @@ public class ArraysOperator {
         return res;
     }
 
+    public static double[] convertToDouble(String input) {
+        double[] res = new double[input.length()];
+        for (int k = 0; k < input.length(); k++) {
+            byte dv = (byte) input.charAt(k);
+            res[k] = dv % Integer.MAX_VALUE;
+        }
+        return res;
+    }
+
+    public static double[] convertToDouble(String input, double coef) {
+        double[] res = new double[input.length()];
+        for (int k = 0; k < input.length(); k++) {
+            byte dv = (byte) input.charAt(k);
+            System.out.println(coef + "======   --------------->>>  " + (dv) * coef);
+            res[k] = Reducer.roundAccuracy((dv) * coef);
+        }
+        return res;
+    }
+
+
+    public static double[] convertToDouble(String input, double coef, double shift) {
+        double[] res = new double[input.length()];
+        for (int k = 0; k < input.length(); k++) {
+            byte dv = (byte) input.charAt(k);
+            res[k] = Reducer.roundAccuracy((dv - shift) * coef);
+        }
+        return res;
+    }
+
     public static double[] convertToDouble(byte[] input) {
         double[] res = new double[input.length];
         for (int k = 0; k < input.length; k++) {

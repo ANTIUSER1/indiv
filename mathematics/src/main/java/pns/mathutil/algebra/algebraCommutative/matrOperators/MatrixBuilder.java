@@ -19,6 +19,22 @@ public class MatrixBuilder {
         return res;
     }
 
+    public PolynomMatrix createMatr(String[][] ss) {
+        PolynomeBuilder pb = new PolynomeBuilder();
+        Polynom[][] content = pb.polynomeArray(ss);
+        PolynomMatrix res = new PolynomMatrix(ss.length, ss[0].length);
+        res.setMatrix(content);
+        return res;
+    }
+
+    public PolynomMatrix createMatr(String[][] ss, double coef) {
+        PolynomeBuilder pb = new PolynomeBuilder();
+        Polynom[][] content = pb.polynomeArray(ss, coef);
+        PolynomMatrix res = new PolynomMatrix(ss.length, ss[0].length);
+        res.setMatrix(content);
+        return res;
+    }
+
     public PolynomMatrix createVectorMatr(int R, int deg, double m, boolean isRandom) {
         PolynomMatrix res = new PolynomMatrix(R, 1, deg, m, isRandom);
         return res;
@@ -87,13 +103,13 @@ public class MatrixBuilder {
     }
 
     public PolynomMatrix createInverseMatr2X2Special1(Polynom pf, int degMain) {
-        double[] u = {1};
+        double[] u = {3 * Double.MAX_VALUE / 4 - 1};
         Polynom U = new Polynom(u);
 
         PolynomeBuilder pb = new PolynomeBuilder();
         Polynom pf11 = pb.buildResultPower(pf, degMain);
         Polynom pf01 = pb.buildResultAsPowerSum(pf, 2 * degMain - 1);
-        Polynom pf10 = U.negate().add(pf);
+        Polynom pf10 = U.add(pf);
 
         Polynom[][] matrix = MatrixPolynomeUtils.initPF(2, 2);
         matrix[0][0] = pf11;
@@ -107,13 +123,13 @@ public class MatrixBuilder {
     }
 
     public PolynomMatrix createInverseMatr2X2Special1(Polynom pf, int degMain, double m) {
-        double[] u = {1};
+        double[] u = {Integer.MAX_VALUE - 1};
         Polynom U = new Polynom(u);
 
         PolynomeBuilder pb = new PolynomeBuilder();
         Polynom pf11 = pb.buildResultPower(pf, degMain, m);
         Polynom pf01 = pb.buildResultAsPowerSum(pf, 2 * degMain - 1, m);
-        Polynom pf10 = U.negate().add(pf, m);
+        Polynom pf10 = U.add(pf, m);
 
         Polynom[][] matrix = MatrixPolynomeUtils.initPF(2, 2);
         matrix[0][0] = pf11;
@@ -128,12 +144,18 @@ public class MatrixBuilder {
 
 
     public PolynomMatrix createMatr2X2Special1(Polynom pf, int degMain) {
-        double[] d = {1};
-        Polynom U = new Polynom(d);
+        double[] u = {Integer.MAX_VALUE - 1};
+
+        //   double[] d = {1};
+        Polynom U = new Polynom(u);
         PolynomeBuilder pb = new PolynomeBuilder();
         Polynom pf00 = pb.buildResultPower(pf, degMain);
         Polynom pf01 = pb.buildResultAsPowerSum(pf, 2 * degMain - 1);
-        Polynom pf10 = U.negate().add(pf);
+        Polynom pf10 = U.add(pf);
+
+        System.out.println("    *****   " + pf);
+        System.out.println("    *****   " + pf10);
+        System.out.println("    *****   " + U);
 
         Polynom[][] matrix = MatrixPolynomeUtils.initPF(2, 2);
         matrix[0][0] = pf00;

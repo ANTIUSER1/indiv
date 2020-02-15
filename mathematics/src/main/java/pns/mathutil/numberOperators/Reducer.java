@@ -43,5 +43,9 @@ public class Reducer {
         return res;
     }
 
-
+    public static double roundAccuracy(double d) {
+        double d1 = d * 1000;
+        int result = (int) d1;
+        return (double) result / 1000;
+    }
 }

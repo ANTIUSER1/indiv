@@ -65,7 +65,35 @@ public class PolynomeBuilder {
         return res;
     }
 
-    public Polynom LinCombination(Polynom[] p, Polynom[] pCoefs) {
+    public Polynom[] polynomeArray(String[] ss) {
+        Polynom[] res = new Polynom[ss.length];
+        for (int i = 0; i < res.length; i++) {
+            res[i] = new Polynom(ss[i]);
+        }
+        return res;
+    }
+
+    public Polynom[][] polynomeArray(String[][] ss) {
+        Polynom[][] res = new Polynom[ss.length][ss[0].length];
+        for (int i = 0; i < res.length; i++) {
+            for (int j = 0; j < res[0].length; j++) {
+                res[i][j] = new Polynom(ss[i][j]);
+            }
+        }
+        return res;
+    }
+
+    public Polynom[][] polynomeArray(String[][] ss, double coeff) {
+        Polynom[][] res = new Polynom[ss.length][ss[0].length];
+        for (int i = 0; i < res.length; i++) {
+            for (int j = 0; j < res[0].length; j++) {
+                res[i][j] = new Polynom(ss[i][j], coeff);
+            }
+        }
+        return res;
+    }
+
+    public Polynom linCombination(Polynom[] p, Polynom[] pCoefs) {
         double[] z = {0};
         Polynom res = new Polynom(z);
         if (p.length <= pCoefs.length) {

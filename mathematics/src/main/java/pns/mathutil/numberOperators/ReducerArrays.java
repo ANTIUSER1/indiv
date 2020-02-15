@@ -2,6 +2,7 @@ package pns.mathutil.numberOperators;
 
 public class ReducerArrays {
 
+
     public static double[] reduceMod(double[] d, double mm) {
         double[] res = new double[d.length];
         for (int k = 0; k < res.length; k++) {
