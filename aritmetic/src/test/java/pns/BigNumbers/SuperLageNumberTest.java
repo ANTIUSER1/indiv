@@ -46,16 +46,27 @@ public class SuperLageNumberTest {
         System.out.println("slNumber1  " + slNumber1);
         System.out.println("slNumber2 " + slNumber2);
         System.out.println("slNumber1+slNumber2 " + slNum);
-/*
-4
-5
-9
-         Z0153
-   5XZZZ6XZXZZ
-         WZZ52
+    }
 
+    @Test
+    public void multiplyByDigit() {
 
-*/
+        Set<Byte> dSet = generateDigitSet(65, 90);
+        SuperLageNumber slN1 = new SuperLageNumber("325");
+        SuperLageNumber slN2 = new SuperLageNumber("45");
+        SuperLageNumber slN3 = slN1.muliplyByDigit(slN2);
+        System.out.println("    SLN1   " + slN1);
+        System.out.println("    SLN2   " + slN2);
+        System.out.println("    SLN3   " + slN3);
+
+    }
+
+    @Test
+    public void shiftToLeft() {
+        Set<Byte> dSet = generateDigitSet(65, 90);
+        SuperLageNumber slN1 = new SuperLageNumber("225012121", false);
+        SuperLageNumber slN2 = slN1.shiftToLeft(20);
+        System.out.println(slN1 + "   " + slN2);
     }
 
     @Test
