@@ -38,9 +38,9 @@ public class SuperLageNumberTest {
     public void add() {
 
         Set<Byte> dSet = generateDigitSet(65, 90);
-        SuperLageNumber slNumber1 = new SuperLageNumber("27", true);
+        SuperLageNumber slNumber1 = new SuperLageNumber("258258258");
         System.out.println("slNumber1 " + slNumber1 + "   base " + slNumber1.getBase() + "   digits  " + slNumber1.getDigits());
-        SuperLageNumber slNumber2 = new SuperLageNumber("35", true);
+        SuperLageNumber slNumber2 = new SuperLageNumber("852852852");
         System.out.println("slNumber2 " + slNumber2 + "   base " + slNumber2.getBase() + "   digits  " + slNumber2.getDigits());
         SuperLageNumber slNum = slNumber1.add(slNumber2);
         System.out.println("slNumber1  " + slNumber1);
@@ -53,8 +53,21 @@ public class SuperLageNumberTest {
 
         Set<Byte> dSet = generateDigitSet(65, 90);
         SuperLageNumber slN1 = new SuperLageNumber("325");
-        SuperLageNumber slN2 = new SuperLageNumber("45");
-        SuperLageNumber slN3 = slN1.muliplyByDigit(slN2);
+        SuperLageNumber slN3 = slN1.muliplyByDigit("4");
+        System.out.println("    SLN1   " + slN1);
+
+        System.out.println("    SLN3   " + slN3);
+
+    }
+
+
+    @Test
+    public void multiply() {
+
+        Set<Byte> dSet = generateDigitSet(65, 90);
+        SuperLageNumber slN1 = new SuperLageNumber("55522251112111447225825822558220002222888877998855555822580000140000001");
+        SuperLageNumber slN2 = new SuperLageNumber("117878784545451212123232326565000000110000000110000000000000776598989878545695");
+        SuperLageNumber slN3 = slN1.muliply(slN2);
         System.out.println("    SLN1   " + slN1);
         System.out.println("    SLN2   " + slN2);
         System.out.println("    SLN3   " + slN3);
