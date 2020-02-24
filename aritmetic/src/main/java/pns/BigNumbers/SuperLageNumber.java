@@ -106,10 +106,11 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
     }
 
     public SuperLageNumber add(SuperLageNumber a) {
-        a.rebuildDigits();
-        this.rebuildDigits();
         SuperLageNumber tmpT = this.clone();
         SuperLageNumber tmpA = a.clone();
+        tmpA.rebuildDigits();
+        tmpT.rebuildDigits();
+
         if (!tmpT.isNegative && tmpA.isNegative) {
             tmpA.isNegative = false;
             return tmpT.substuct(tmpA);
@@ -223,6 +224,7 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
     public SuperLageNumber muliplyByDigit(String digit) {
         char c = digit.charAt(0);
         SuperLageNumber res = this.clone();
+        res.rebuildDigits();
         if (!res.digits.contains((byte) c)) throw new ArithmeticException(digit + " is not exists ");
         String ss = multStringOnChar(res.value, c);
         res.value = removeFirstDigitsFrom(ss);
@@ -233,6 +235,8 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
     public SuperLageNumber muliply(SuperLageNumber a) {
         SuperLageNumber tmpT = this.clone();
         SuperLageNumber tmpA = a.clone();
+        tmpA.rebuildDigits();
+        tmpT.rebuildDigits();
         Set<Byte> stb = new HashSet<>(digits);
         SuperLageNumber res = new SuperLageNumber(stb, "0", false);
         List<SuperLageNumber> superLageNumberList = new ArrayList<>();
@@ -245,7 +249,7 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
         }
         for (SuperLageNumber large : superLageNumberList) {
             res = res.add(large);
-//            System.out.println(large + "   res  " + res);
+            //     System.out.println(large + "   res  " + res);
         }
         res.isNegative = (tmpA.isNegative && !tmpT.isNegative) || (!tmpA.isNegative && tmpT.isNegative);
         //System.out.println(superLageNumberList);
@@ -383,7 +387,6 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
         Set<Integer> lockInt = new HashSet<>();
 //        System.out.println(s1 + "  + " + s2);
 //        System.out.println(s1.length());
-
 
         for (int k = s1.length() - 1; k >= 0; k--) {
             byte b1 = (byte) s1.charAt(k);
