@@ -1,9 +1,6 @@
 package pns.BigNumbers;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class SuperLageNumber implements Comparable<SuperLageNumber> {
 
@@ -135,7 +132,7 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
             tmpSTR1 = addZerosTo(tmpSTR1,
                     tmpSTR2.length() - tmpSTR1.length());
         }
-        String nc = genCrarSq(tmpSTR1, tmpSTR2);
+        String nc = add(tmpSTR1, tmpSTR2);
 
         Set<Byte> tmpDig = new HashSet<>(this.digits);
         SuperLageNumber res = new SuperLageNumber(tmpDig, nc);
@@ -235,14 +232,17 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
     public SuperLageNumber muliply(SuperLageNumber a) {
         SuperLageNumber tmpT = this.clone();
         SuperLageNumber tmpA = a.clone();
+
         tmpA.rebuildDigits();
         tmpT.rebuildDigits();
+        this.digits = tmpA.digits;
         Set<Byte> stb = new HashSet<>(digits);
         SuperLageNumber res = new SuperLageNumber(stb, "0", false);
         List<SuperLageNumber> superLageNumberList = new ArrayList<>();
         List<String> superLageStrList = new ArrayList<>();
         for (int k = 0; k < tmpA.value.length(); k++) {
             String tmp = multStringOnChar(tmpT.value, tmpA.value.charAt(k));
+            //System.out.println(k + "   " + tmp + "   " + tmpT.value + "    " + tmpA.value.charAt(k));
             tmp = shiftToLeft(tmp, tmpA.value.length() - k - 1);
             SuperLageNumber tmpNum = new SuperLageNumber(stb, tmp);
             superLageNumberList.add(tmpNum);
@@ -270,49 +270,99 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
         return new SuperLageNumber(s0, res.value, res.isNegative);
     }
 
-
     private String multStringOnChar(String value, char c) {
-        StringBuilder res = new StringBuilder("00000" + value);
+        rebuildDigits();
+        //   System.out.println("START    :: " + value + "*" + c);
+        String ss = addZerosTo("000", value.length());
+        value = "000" + value;
+        StringBuilder res = new StringBuilder(ss);
+        StringBuilder mem = new StringBuilder("0");
+
+        Set<Integer> lockedInt = new HashSet<>();
+        byte b = (byte) c;
+        int fixN = digits.indexOf(b);
+        for (int k = value.length() - 1; k >= 0; k--) {
+
+            byte currentByte = (byte) value.charAt(k);
+            int currentInt = digits.indexOf(currentByte);
+            int currentProd = fixN * currentInt;
+            int over = currentProd / digits.size();
+            byte overByte = digits.get(over);
+            mem.append((char) overByte);
+
+            byte newByte = digits.get(currentProd % digits.size());
+            if (!lockedInt.contains(k)) {
+                lockedInt.add(k);
+                res.setCharAt(k, (char) newByte);
+            }
+        }
+//        System.out.println(mem.toString() + "  +   " + res.toString());
+        Set<Byte> btts = new HashSet<>(digits);
+
+        SuperLageNumber tmmMod = new SuperLageNumber(btts, res.toString());
+        SuperLageNumber tmmMem = new SuperLageNumber(btts, mem.reverse().toString());
+        tmmMem.rebuildDigits();
+        tmmMod.rebuildDigits();
+        SuperLageNumber tmp = tmmMod.add(tmmMem);
+//        System.out.println("      TMP MEM :   " + tmmMem);
+//        System.out.println("      TMP MOD:   " + tmmMod);
+//        System.out.println("      TMP:   " + tmp);
+        return tmp.value;
+
+        // return add(res.toString(), mem.toString());
+        // return res.toString();
+    }
+
+    //     ***************************************************************************************
+    //********************************
+    private String multStringOnChar1(String value, char c) {
+        System.out.println("START    :: " + value + "*" + c);
+        //value==addZerosTo("00"+value,value.length());
+        String ss = addZerosTo("00", value.length());
+
+
+        StringBuilder res = new StringBuilder(ss + value);
         value = res.toString();
         Set<Integer> lockedInt = new HashSet<>();
         byte b = (byte) c;
         int over = 0;
         int fixN = digits.indexOf(b);
-        //     System.out.println("   LEN  " + value.length());
+        System.out.println("   LEN  " + value.length() + "   " + value + "/" + res.toString());
         for (int k = value.length() - 1; k >= 0; k--) {
 
             byte cb = (byte) value.charAt(k);
             int n = digits.indexOf(cb);
             int p = fixN * n;
-
-            //boolean mustToAdd = p >= digits.size();
+            over = p / digits.size();
             int rn = p % digits.size();
-
             byte cbn = digits.get(rn);
             char ccn = (char) cbn;
             //   System.out.println("   " + ccn);
-            if (!lockedInt.contains(k)) res.setCharAt(k, ccn);
-            lockedInt.add(k);
-            over = p / digits.size();
-//            System.out.println(n + " * " + fixN);
+            if (!lockedInt.contains(k)) {
+                res.setCharAt(k, ccn);
+                lockedInt.add(k);
+                // System.out.println(n + " * " + fixN + "   over " + over);
 //            System.out.println(k + "   res  " + res + "   " + lockedInt);
-
+            }
             if (over > 0) {
                 if (k > 0) {
-                    //  System.out.println("     k-1  " + (k - 1));
+                    //       System.out.println("         k-1  " + (k - 1));
                     byte prevByte = (byte) value.charAt(k - 1);
                     int prevInt = digits.indexOf(prevByte);
                     int prevIntNew = over + prevInt * fixN;
                     byte prevByteNew = digits.get(prevIntNew % digits.size());
-                    if (!lockedInt.contains(k - 1)) res.setCharAt(k - 1, (char) prevByteNew);
-                    lockedInt.add(k - 1);
-//                    System.out.println("      " + over + " + " + prevInt + " * " + fixN);
-//                    System.out.println("      " + k + "   res  " + res + "   " + lockedInt);
 
+                    System.out.println(k + "  :: size " + digits.size() + "::: " + prevInt + " // " + prevIntNew + "   " + (char) prevByte + "   " + (char) prevByteNew);
+                    if (!lockedInt.contains(k - 1)) {
+                        res.setCharAt(k - 1, (char) prevByteNew);
+                        lockedInt.add(k - 1);
+                        System.out.println("      " + over + " + " + prevInt + " * " + fixN);
+                        System.out.println("      " + k + "   res  " + res + "   " + lockedInt);
+                    }
 
                     over = prevIntNew / digits.size();
                     if (over > 0) {
-                        //      System.out.println("#######====>>>");
+                        //System.out.println("#######====>>>");
                         if (k > 2) {
 //                            System.out.println("    " + (k - 2));
 
@@ -321,21 +371,39 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
                             int prevIntNew1 = over + prevInt1 * fixN;
                             byte prevByteNew1 = digits.get(prevIntNew1 % digits.size());
 
-                            if (!lockedInt.contains(k - 2)) res.setCharAt(k - 2, (char) prevByteNew1);
-                            lockedInt.add(k - 2);
-//                            System.out.println("               " + over + " + " + prevInt1 + " * " + fixN);
-//                            System.out.println("               " + k + "   res  " + res + "   " + lockedInt);
+                            if (!lockedInt.contains(k - 2)) {
+                                res.setCharAt(k - 2, (char) prevByteNew1);
+                                lockedInt.add(k - 2);
+                                System.out.println(" -----              " + over + " + " + prevInt1 + " * " + fixN);
+                                System.out.println(" -----              " + k + "   res  " + res + "   " + lockedInt);
+                            }
 
+                            over = prevIntNew / digits.size();
+                            if (over > 0) {
+                                //System.out.println("#######====>>>");
+                                if (k > 3) {
+//                            System.out.println("    " + (k - 2));
 
+                                    byte prevByte2 = (byte) value.charAt(k - 3);
+                                    int prevInt2 = digits.indexOf(prevByte2);
+                                    int prevIntNew2 = over + prevInt2 * fixN;
+                                    byte prevByteNew2 = digits.get(prevIntNew1 % digits.size());
+
+                                    if (!lockedInt.contains(k - 3)) {
+                                        res.setCharAt(k - 3, (char) prevByteNew2);
+                                        lockedInt.add(k - 3);
+                                        System.out.println(" -----              " + over + " + " + prevInt1 + " * " + fixN);
+                                        System.out.println(" -----              " + k + "   res  " + res + "   " + lockedInt);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
-
-
         }
         //    System.out.println(over + "  res  " + res.toString());
-
+        System.out.println("FINISH   " + res.toString());
         return res.toString();
     }
 
@@ -345,6 +413,18 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
         return res.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SuperLageNumber that = (SuperLageNumber) o;
+        return this.toString().trim().equals(o.toString().trim());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(digits, base, value, isNegative);
+    }
 
     @Override
     public String toString() {
@@ -377,7 +457,8 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
         return 0;
     }
 
-    private String genCrarSq(String s1, String s2) {
+    private String add(String s1, String s2) {
+        rebuildDigits();
         s1 = addZerosTo(s1, 2);
         s2 = addZerosTo(s2, 2);
         String ss = addZerosTo("", s1.length());
@@ -394,7 +475,8 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
             int p1 = digits.indexOf(b1);
             int p2 = digits.indexOf(b2);
 
-            over = (p1 + p2 + over) / digits.size();
+            if (p1 + p2 + over >= digits.size()) over = 1;
+            //    System.out.println(" digits.size() " + digits.size() + "     " + (p1 + p2 + over) + "   ***  " + (p1 + p2 + over >= digits.size()));
             int p = (p1 + p2) % digits.size();
             byte b = digits.get(p);
 
@@ -403,9 +485,9 @@ public class SuperLageNumber implements Comparable<SuperLageNumber> {
                 lockInt.add(k);
 //
 //                System.out.println(k + "    chr  " + (char) b);
-//                System.out.println(k + "  over " + over + "  @@@----  ----k " + k + "  res  " + res);
+                //  System.out.println(" (p1 + p2 + over)  " + (p1 + p2 + over) + "   chr" + (char) b + "  over " + over + "   k " + k + "res" + res);
             }
-
+            //  System.out.println(k + "   " + lockInt);
             if (over > 0) {
                 if (k > 0) {
                     byte prevByte1 = (byte) s1.charAt(k - 1);
