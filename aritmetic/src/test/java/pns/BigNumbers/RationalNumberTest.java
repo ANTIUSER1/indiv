@@ -2,7 +2,7 @@ package pns.BigNumbers;
 
 import org.junit.Test;
 
-import java.math.BigDecimal;
+import java.util.Set;
 
 public class RationalNumberTest {
 
@@ -10,13 +10,13 @@ public class RationalNumberTest {
     public void add() throws Exception {
         System.out.println("      ADD     ");
 
-        BigDecimal ad = new BigDecimal(24);
-        BigDecimal bd = new BigDecimal(30);
+        SuperLageNumber ad = new SuperLageNumber("24");
+        SuperLageNumber bd = new SuperLageNumber("30");
         RationalNumber a = new RationalNumber(ad, bd);
         System.out.println("ad=" + ad + "  bd=" + bd + "ad/bd=" + a);
 
-        BigDecimal ad1 = new BigDecimal(3);
-        BigDecimal bd1 = new BigDecimal(7);
+        SuperLageNumber ad1 = new SuperLageNumber("3");
+        SuperLageNumber bd1 = new SuperLageNumber("7");
         RationalNumber b = new RationalNumber(ad1, bd1);
         System.out.println("ad1=" + ad1 + "  bd1=" + bd1 + "ad/bd=" + b);
         System.out.println("       a.equals(b) " + a.equals(b));
@@ -31,13 +31,13 @@ public class RationalNumberTest {
     public void multiply() throws Exception {
         System.out.println("      MULTIPLY     ");
 
-        BigDecimal ad = new BigDecimal(24);
-        BigDecimal bd = new BigDecimal(30);
+        SuperLageNumber ad = new SuperLageNumber("24");
+        SuperLageNumber bd = new SuperLageNumber("30");
         RationalNumber a = new RationalNumber(ad, bd);
         System.out.println("ad=" + ad + "  bd=" + bd + "ad/bd=" + a);
 
-        BigDecimal ad1 = new BigDecimal(3);
-        BigDecimal bd1 = new BigDecimal(5);
+        SuperLageNumber ad1 = new SuperLageNumber("3");
+        SuperLageNumber bd1 = new SuperLageNumber("5");
         RationalNumber b = new RationalNumber(ad1, bd1);
         System.out.println("ad1=" + ad1 + "  bd1=" + bd1 + "ad/bd=" + b);
         System.out.println("       a.equals(b) " + a.equals(b));
@@ -51,8 +51,8 @@ public class RationalNumberTest {
     @Test
     public void negate() throws Exception {
         System.out.println("      NEGATE    ");
-        BigDecimal ad1 = new BigDecimal(3);
-        BigDecimal bd1 = new BigDecimal(5);
+        SuperLageNumber ad1 = new SuperLageNumber("3");
+        SuperLageNumber bd1 = new SuperLageNumber("5");
         RationalNumber b = new RationalNumber(ad1, bd1);
         System.out.println("ad1=" + ad1 + "  bd1=" + bd1 + "ad/bd=" + b);
         RationalNumber neg = b.negate();
@@ -62,10 +62,11 @@ public class RationalNumberTest {
 
     @Test
     public void inverse() throws Exception {
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
 
         System.out.println("      INVERSE    ");
-        BigDecimal ad1 = new BigDecimal(3);
-        BigDecimal bd1 = new BigDecimal(5);
+        SuperLageNumber ad1 = new SuperLageNumber(dSet, "3");
+        SuperLageNumber bd1 = new SuperLageNumber(dSet, "5");
         RationalNumber b = new RationalNumber(ad1, bd1);
         System.out.println("ad1=" + ad1 + "  bd1=" + bd1 + "ad/bd=" + b);
         RationalNumber inv = b.inverse();

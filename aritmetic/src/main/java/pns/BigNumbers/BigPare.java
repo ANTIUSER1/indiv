@@ -1,20 +1,20 @@
 package pns.BigNumbers;
 
-import java.math.BigDecimal;
-
-public class BigPare<F extends BigDecimal, S extends BigDecimal> {
+public class BigPare<F extends SuperLageNumber, S extends SuperLageNumber> implements ISuperPare {
 
     protected F first;
     protected S second;
 
     public BigPare(F first, S second) {
         this.first = first;
+        this.first.rebuildDigits();
         this.second = second;
+        this.second.rebuildDigits();
     }
 
     public BigPare() {
-        first = (F) new BigDecimal(0);
-        second = (S) new BigDecimal(0);
+        first = (F) new SuperLageNumber("0");
+        second = (S) new SuperLageNumber("0");
     }
 
     public BigPare(BigPare source) {

@@ -1,25 +1,35 @@
 package pns.BigNumbers;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 
-public class RationalNumber<F extends BigDecimal, S extends BigDecimal> extends BigPare<F, S> {
+public class RationalNumber<F extends SuperLageNumber, S extends SuperLageNumber> extends BigPare<F, S> implements Serializable {
+
+
     public RationalNumber(F first, S second) throws Exception {
         super(first, second);
+        if (!super.first.getDigits().equals(super.second.getDigits()))
+            throw new ArithmeticException("Can not create such rational Number");
         makeRational();
+
     }
 
     public RationalNumber(BigPare source) throws Exception {
         super();
         super.first = (F) source.first;
         super.second = (S) source.second;
+        if (!super.first.getDigits().equals(super.second.getDigits()))
+            throw new ArithmeticException("Can not create such rational Number  " + super.toString() + "  " +
+                    "\n\r Dec 1 " + super.first.getDigits() +
+
+                    "\n\r Dec 2 " + super.second.getDigits());
         makeRational();
     }
 
     public RationalNumber add(RationalNumber a) throws Exception {
-        BigDecimal dividor1 = new BigDecimal("" + (first.multiply(a.second)));
-        BigDecimal dividor2 = new BigDecimal("" + (second.multiply(a.first)));
+        SuperLageNumber dividor1 = new SuperLageNumber("" + (first.multiply(a.second)));
+        SuperLageNumber dividor2 = new SuperLageNumber("" + (second.multiply(a.first)));
 
-        BigDecimal dividor = new BigDecimal("" + dividor1.add(dividor2));
+        SuperLageNumber dividor = new SuperLageNumber("" + dividor1.add(dividor2));
         BigPare bp = new BigPare(dividor, a.second.multiply(second));
         return new RationalNumber(bp);
     }
@@ -41,12 +51,15 @@ public class RationalNumber<F extends BigDecimal, S extends BigDecimal> extends 
     }
 
     private void makeRational() throws Exception {
-        BigDecimal z = new BigDecimal(0);
+        SuperLageNumber z = new SuperLageNumber();
         if (second.equals(z)) throw new ArithmeticException("dividing by 0");
         BigPareOperations bpo = new BigPareOperations();
-        BigDecimal common = bpo.gcd(first, second);
-        first = (F) first.divide(common);
-        second = (S) second.divide(common);
+        SuperLageNumber common = bpo.gcd(first, second);
+
+        SuperLageNumber[] restsF = first.divide(common);
+        SuperLageNumber[] restsS = second.divide(common);
+        first = (F) restsF[0];
+        second = (S) restsS[0];
     }
 
     @Override

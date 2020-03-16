@@ -2,7 +2,7 @@ package pns.BigNumbers;
 
 import org.junit.Test;
 
-import java.util.HashSet;
+import java.util.Date;
 import java.util.Set;
 
 public class SuperLageNumberTest {
@@ -17,8 +17,9 @@ public class SuperLageNumberTest {
         slNumber = new SuperLageNumber("3322");
         System.out.println(slNumber + "   base " + slNumber.getBase() + "   digits  " + slNumber.getDigits());
 
-        Set<Byte> dSet = generateDigitSet(65, 90);
-        Set<Byte> dSet1 = generateDigitSet(97, 122);
+
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
+        Set<Byte> dSet1 = BigPareOperations.generateDigitSet(97, 122);
         slNumber = new SuperLageNumber(dSet, "332ASD2222558");
         System.out.println(slNumber + "   base " + slNumber.getBase() + "   digits  " + slNumber.getDigits());
 
@@ -28,11 +29,6 @@ public class SuperLageNumberTest {
 
     }
 
-    private Set<Byte> generateDigitSet(int from, int to) {
-        Set<Byte> res = new HashSet<>();
-        for (byte k = (byte) from; k <= to; k++) res.add(k);
-        return res;
-    }
 
     @Test
     public void addMultiTest() {
@@ -52,17 +48,21 @@ public class SuperLageNumberTest {
 
     @Test
     public void multiplyMultiTest() {
-        int e = 0;
-        int d = 0;
-        int i = 0;
-        for (int u = 101; u < 10000; u++) {
-            for (int v = 100; v < u; v++) {
+        long ts = System.currentTimeMillis();
+        long e = 0;
+        long d = 0;
+        long i = 0;
+
+        long maxLim = 5;
+        long minLim = 2000000000;
+
+        for (long u = minLim; u < minLim + maxLim; u++) {
+            for (long v = minLim; v < minLim + maxLim; v++) {
                 i++;
                 SuperLageNumber N1 = new SuperLageNumber("" + u);
                 SuperLageNumber N2 = new SuperLageNumber("" + v);
                 SuperLageNumber N0 = new SuperLageNumber("" + (u * v));
-                SuperLageNumber N = N1.muliply(N2);
-
+                SuperLageNumber N = N1.multiply(N2);
                 if (!N0.equals(N)) {
                     e++;
                     System.out.println("ERRROR :   u*v= " + N0 + "  N1.mult(N2)=" + N + "   u=" + u + "   v=" + v);
@@ -72,14 +72,14 @@ public class SuperLageNumberTest {
                 }
             }
         }
-        System.out.println(
-                "  i " + i + "       d " + d + "   e " + e
+        System.out.println(new Date() +
+                "       i " + i + "       d " + d + "   e " + e + "    " + new Date(System.currentTimeMillis() - ts)
         );
     }
 
     @Test
     public void add() {
-        Set<Byte> dSet = generateDigitSet(65, 90);
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
         SuperLageNumber slNumber1 = new SuperLageNumber("4670");
         // System.out.println("slNumber1 " + slNumber1 + "   base " + slNumber1.getBase() + "   digits  " + slNumber1.getDigits());
         SuperLageNumber slNumber2 = new SuperLageNumber("532");
@@ -93,7 +93,7 @@ public class SuperLageNumberTest {
     @Test
     public void multiplyByDigit() {
 
-        Set<Byte> dSet = generateDigitSet(65, 90);
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
         SuperLageNumber slN1 = new SuperLageNumber("578");
         SuperLageNumber slN3 = slN1.muliplyByDigit("9");
         System.out.println("    SLN1   " + slN1);
@@ -106,15 +106,16 @@ public class SuperLageNumberTest {
     @Test
     public void multiply() {
 
-        Set<Byte> dSet = generateDigitSet(65, 90);
-        Set<Byte> dSet1 = generateDigitSet(58, 122);
+
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
+        Set<Byte> dSet1 = BigPareOperations.generateDigitSet(58, 122);
         dSet.addAll(dSet1);
-        SuperLageNumber slN1 = new SuperLageNumber("2120");
-        SuperLageNumber slN2 = new SuperLageNumber("9");
-        SuperLageNumber slN3 = slN1.muliply(slN2);
+        SuperLageNumber slN1 = new SuperLageNumber("444777555");
+        SuperLageNumber slN2 = new SuperLageNumber("454547");
+        SuperLageNumber slN3 = slN1.multiply(slN2);
         System.out.println(slN1);
         System.out.println(slN2);
-        System.out.println("--------------   ");
+        System.out.println("--------------   " + slN3.getValue().length());
         System.out.println(slN3);
         //112 89
 
@@ -122,27 +123,24 @@ public class SuperLageNumberTest {
 
     @Test
     public void substuct() {
-
-        Set<Byte> dSet = generateDigitSet(65, 90);
-        SuperLageNumber slNumber1 = new SuperLageNumber("0", false);
-        //System.out.println("slNumber1 " + slNumber1 + "   base " + slNumber1.getBase() + "   digits  " + slNumber1.getDigits());
-        SuperLageNumber slNumber2 = new SuperLageNumber("35", true);
-        // System.out.println("slNumber2 " + slNumber2 + "   base " + slNumber2.getBase() + "   digits  " + slNumber2.getDigits());
-        SuperLageNumber slNum = slNumber1.substuct(slNumber2);
-        System.out.println("slNumber1  " + slNumber1);
-        System.out.println("slNumber2 " + slNumber2);
-        System.out.println("slNum=slNumber1-slNumber2 " + slNum);
-        SuperLageNumber slN = new SuperLageNumber(slNum.getValue());
-
-        slNum = slN.add(slNumber2);
-        System.out.println("slNum+slNumber2 " + slNum);
-
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
+        SuperLageNumber slNumber1 = new SuperLageNumber(dSet, "7", false);
+        SuperLageNumber slNumber2 = new SuperLageNumber(dSet, "9", false);
+//
+        SuperLageNumber slNum = slNumber1.substact(slNumber2);
+//        System.out.println("slNumber1  " + slNumber1);
+//        System.out.println("slNumber2 " + slNumber2);
+//        System.out.println("slNum=slNumber1-slNumber2 " + slNum);
+////        System.out.println("slNumber1.compareTo(slNum )  " + slNumber1.compareTo(slNum));
+//        SuperLageNumber sad = slNum.add(slNumber2);
+//        System.out.println("sad  " + sad);
     }
 
     @Test
     public void addZerosTo() {
 
-        Set<Byte> dSet = generateDigitSet(65, 90);
+
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
         SuperLageNumber slNumber1 = new SuperLageNumber(dSet, "12005533");
         System.out.println("slNumber1 " + slNumber1 + "   base " + slNumber1.getBase() + "   digits  " + slNumber1.getDigits());
         String tmp = slNumber1.addZerosTo(slNumber1.getValue(), 35);
@@ -156,13 +154,44 @@ public class SuperLageNumberTest {
     @Test
     public void compareTo() {
 
-        Set<Byte> dSet = generateDigitSet(65, 90);
-        SuperLageNumber slNumber1 = new SuperLageNumber("285354");
-        SuperLageNumber slNumber2 = new SuperLageNumber("285254");
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
+        SuperLageNumber slNumber1 = new SuperLageNumber(dSet, "73");
+        SuperLageNumber slNumber2 = new SuperLageNumber(dSet, "2");
         System.out.println("N1   " + slNumber1);
         System.out.println("N2   " + slNumber2);
 
         int compare = slNumber1.compareTo(slNumber2);
         System.out.println(" comp  " + compare);
+    }
+
+    @Test
+    public void intDiv() {
+
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
+        SuperLageNumber N1 = new SuperLageNumber("30");
+        SuperLageNumber N2 = new SuperLageNumber("7");
+        SuperLageNumber N3 = N1.intDiv(N2);
+        System.out.println("N3=" + N3);
+
+    }
+
+    @Test
+    public void divide() {
+
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
+        SuperLageNumber N1 = new SuperLageNumber("30");
+        SuperLageNumber N2 = new SuperLageNumber("7");
+        SuperLageNumber[] N3 = N1.divide(N2);
+        System.out.println("N =  " + N3[0] + "  ; " + N3[1]);
+    }
+
+    @Test
+    public void mod() {
+
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
+        SuperLageNumber N1 = new SuperLageNumber("29");
+        SuperLageNumber N2 = new SuperLageNumber("7");
+        SuperLageNumber N3 = N1.mod(N2);
+        System.out.println("N = " + N3);
     }
 }

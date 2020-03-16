@@ -3,17 +3,19 @@ package pns.BigNumbers;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 public class BigPareOperationsTest {
 
-    @org.junit.Test
+    @Test
     public void gcd() throws Exception {
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
 
-        BigDecimal a = new BigDecimal(5 * 451 * 997 * 90 * 9);
-        BigDecimal b = new BigDecimal(9 * 101 * 7 * 40 * 997);
+        SuperLageNumber a = new SuperLageNumber(dSet, 5 * 7 + "");
+        SuperLageNumber b = new SuperLageNumber(dSet, 9 * 7 + "");
 
         BigPareOperations bpo = new BigPareOperations();
-        BigDecimal gc = bpo.gcd(a, b);
+        SuperLageNumber gc = bpo.gcd(a, b);
 
         System.out.println("a=" + a + "  b=" + b + " gcd(a, b)=" + gc);
     }
