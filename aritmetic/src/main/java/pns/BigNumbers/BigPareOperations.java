@@ -12,7 +12,8 @@ public class BigPareOperations {
 
     public static Set<Byte> generateDigitSet(int from, int to) {
         Set<Byte> res = new HashSet<>();
-        for (byte k = (byte) from; k <= to; k++) res.add(k);
+        for (int k = from; k <= to; k++) res.add((byte) k);
+        System.out.println(res);
         return res;
     }
 
