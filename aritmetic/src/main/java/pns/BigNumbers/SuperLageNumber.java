@@ -13,7 +13,7 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
 
     public SuperLageNumber() {
         generateDigits();
-        char c = (char) (byte) digits.get(0);
+        char c = (char) (byte) digitsList.get(0);
         value = "" + c;
     }
 
@@ -30,16 +30,16 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
         if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
     }
 
-    public SuperLageNumber(List<Byte> extDigits, String value) {
-        digits = extDigits;
-        if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
-    }
-
-    public SuperLageNumber(List<Byte> extDigits, String value, boolean isNeg) {
-        digits = extDigits;
-        isNegative = isNeg;
-        if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
-    }
+//    public SuperLageNumber(Set<Byte> extDigits, String value) {
+//        digits = extDigits;
+//        if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
+//    }
+//
+//    public SuperLageNumber(Set<Byte> extDigits, String value, boolean isNeg) {
+//        digits = extDigits;
+//        isNegative = isNeg;
+//        if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
+//    }
 
     public SuperLageNumber(Set<Byte> extDigits1, Set<Byte> extDigits2, String value) {
         generateDigits(extDigits1, extDigits2);
@@ -74,7 +74,7 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
         isNegative = negative;
     }
 
-    private boolean isCorrectValue(List<Byte> dig, String value) {
+    private boolean isCorrectValue(Set<Byte> dig, String value) {
         boolean res = true;
 
         for (int k = 0; k < value.length(); k++) {
@@ -113,6 +113,7 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
 
         String tmpSTR1 = tmpT.value;
         String tmpSTR2 = tmpA.value;
+
         if (tmpSTR2.length() < tmpSTR1.length()) {
             tmpSTR2 = addZerosTo(tmpSTR2, tmpSTR1.length() - tmpSTR2.length());
         } else {
@@ -278,7 +279,7 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
         }
         for (SuperLageNumber large : superLageNumberList) {
             res = res.add(large);
-            //     System.out.println(large + "   res  " + res);
+//            System.out.println(large + "   res  " + res);
         }
         res.isNegative = (tmpA.isNegative && !tmpT.isNegative) || (!tmpA.isNegative && tmpT.isNegative);
         //System.out.println(superLageNumberList);
@@ -300,8 +301,8 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
     }
 
     private String multStringOnChar(String value, char c) {
-        rebuildDigits();
-        //   System.out.println("START    :: " + value + "*" + c);
+        //rebuildDigits();
+
         String ss = addZerosTo("000", value.length());
         value = "000" + value;
         StringBuilder res = new StringBuilder(ss);
@@ -309,17 +310,17 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
 
         Set<Integer> lockedInt = new HashSet<>();
         byte b = (byte) c;
-        int fixN = digits.indexOf(b);
+        int fixN = digitsList.indexOf(b);
         for (int k = value.length() - 1; k >= 0; k--) {
 
             byte currentByte = (byte) value.charAt(k);
-            int currentInt = digits.indexOf(currentByte);
+            int currentInt = digitsList.indexOf(currentByte);
             int currentProd = fixN * currentInt;
             int over = currentProd / digits.size();
-            byte overByte = digits.get(over);
+            byte overByte = digitsList.get(over);
             mem.append((char) overByte);
 
-            byte newByte = digits.get(currentProd % digits.size());
+            byte newByte = digitsList.get(currentProd % digits.size());
             if (!lockedInt.contains(k)) {
                 lockedInt.add(k);
                 res.setCharAt(k, (char) newByte);
@@ -333,9 +334,6 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
         tmmMem.rebuildDigits();
         tmmMod.rebuildDigits();
         SuperLageNumber tmp = tmmMod.add(tmmMem);
-//        System.out.println("      TMP MEM :   " + tmmMem);
-//        System.out.println("      TMP MOD:   " + tmmMod);
-//        System.out.println("      TMP:   " + tmp);
         return tmp.value;
 
         // return add(res.toString(), mem.toString());
@@ -395,8 +393,9 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
 
     private String add(String s1, String s2) {
         rebuildDigits();
-        s1 = addZerosTo(s1, 2);
-        s2 = addZerosTo(s2, 2);
+        int N = 3 + s1.length() + s2.length();
+        s1 = addZerosTo(s1, N);
+        s2 = addZerosTo(s2, N);
         String ss = addZerosTo("", s1.length());
 
         StringBuilder res = new StringBuilder(ss);
@@ -405,21 +404,20 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
 //        System.out.println(s1 + "  + " + s2);
 //        System.out.println(s1.length());
 
-        for (int k = s1.length() - 1; k >= 0; k--) {
+        for (int k = ss.length() - 1; k >= 0; k--) {
             byte b1 = (byte) s1.charAt(k);
             byte b2 = (byte) s2.charAt(k);
-            int p1 = digits.indexOf(b1);
-            int p2 = digits.indexOf(b2);
+            int p1 = digitsList.indexOf(b1);
+            int p2 = digitsList.indexOf(b2);
 
             if (p1 + p2 + over >= digits.size()) over = 1;
             //    System.out.println(" digits.size() " + digits.size() + "     " + (p1 + p2 + over) + "   ***  " + (p1 + p2 + over >= digits.size()));
             int p = (p1 + p2) % digits.size();
-            byte b = digits.get(p);
+            byte b = digitsList.get(p);
 
             if (!lockInt.contains(k)) {
                 res.setCharAt(k, (char) b);
                 lockInt.add(k);
-//
 //                System.out.println(k + "    chr  " + (char) b);
                 //  System.out.println(" (p1 + p2 + over)  " + (p1 + p2 + over) + "   chr" + (char) b + "  over " + over + "   k " + k + "res" + res);
             }
@@ -428,12 +426,13 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
                 if (k > 0) {
                     byte prevByte1 = (byte) s1.charAt(k - 1);
                     byte prevByte2 = (byte) s2.charAt(k - 1);
-                    int prevInt1 = digits.indexOf(prevByte1);
-                    int prevInt2 = digits.indexOf(prevByte2);
+                    int prevInt1 = digitsList.indexOf(prevByte1);
+                    int prevInt2 = digitsList.indexOf(prevByte2);
                     int prevIntNew = over + prevInt1 + prevInt2;
                     over = prevIntNew / digits.size();
                     prevIntNew = prevIntNew % digits.size();
-                    byte prevByteNew = digits.get(prevIntNew);
+                    byte prevByteNew = digitsList.get(prevIntNew);
+
 
                     if (!lockInt.contains(k - 1)) {
                         res.setCharAt(k - 1, (char) prevByteNew);
@@ -454,7 +453,7 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
     }
 
     private String substact(String s1, String s2) {
-        rebuildDigits();
+        //    rebuildDigits();
         int N = 1 + s1.length() + s2.length();
         // System.out.println(s1 + "   ;; :   " + s2);
         s1 = addZerosTo(s1, N);
@@ -470,8 +469,8 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
             int pAdd = 0;
             byte b1 = (byte) s1.charAt(k);
             byte b2 = (byte) s2.charAt(k);
-            int p1 = digits.indexOf(b1);
-            int p2 = digits.indexOf(b2);
+            int p1 = digitsList.indexOf(b1);
+            int p2 = digitsList.indexOf(b2);
             int p = (p1 - p2);
 
             mustAddUnit = p < 0;
@@ -479,14 +478,14 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
                 p = digits.size() + p;
                 if (k > 0) {
                     bAdd = (byte) s1.charAt(k - 1);
-                    pAdd = digits.indexOf(bAdd) - 1;
+                    pAdd = digitsList.indexOf(bAdd) - 1;
                     if (pAdd < 0) pAdd = digits.size() + pAdd;
-                    bAdd = digits.get(pAdd);
+                    bAdd = digitsList.get(pAdd);
                     //        System.out.println(bAdd + "   " + pAdd + "    ::  " + "     c      " + s1.charAt(k - 1) + "   " + (char) bAdd);
                     res.setCharAt(k - 1, (char) bAdd);
                 }
             }
-            byte b = digits.get(p);
+            byte b = digitsList.get(p);
 
 
             res.setCharAt(k, (char) b);
@@ -517,9 +516,9 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
     private int comparePositive(String value, String sv) {
         for (int k = 0; k < sv.length(); k++) {
             byte b1 = (byte) value.charAt(k);
-            int n1 = digits.indexOf(b1);
+            int n1 = digitsList.indexOf(b1);
             byte b2 = (byte) sv.charAt(k);
-            int n2 = digits.indexOf(b2);
+            int n2 = digitsList.indexOf(b2);
             if (n1 == n2) {
                 continue;
             } else if (n1 > n2) return 1;
