@@ -80,9 +80,9 @@ public class SuperLageNumberTest {
     @Test
     public void add() {
         Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
-        SuperLageNumber slNumber1 = new SuperLageNumber("4670");
+        SuperLageNumber slNumber1 = new SuperLageNumber("37");
         // System.out.println("slNumber1 " + slNumber1 + "   base " + slNumber1.getBase() + "   digits  " + slNumber1.getDigits());
-        SuperLageNumber slNumber2 = new SuperLageNumber("532");
+        SuperLageNumber slNumber2 = new SuperLageNumber("56");
         //   System.out.println("slNumber2 " + slNumber2 + "   base " + slNumber2.getBase() + "   digits  " + slNumber2.getDigits());
         SuperLageNumber slNum = slNumber1.add(slNumber2);
         System.out.println("slNumber1  " + slNumber1);
@@ -124,16 +124,16 @@ public class SuperLageNumberTest {
     @Test
     public void substuct() {
         Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
-        SuperLageNumber slNumber1 = new SuperLageNumber(dSet, "7", false);
-        SuperLageNumber slNumber2 = new SuperLageNumber(dSet, "9", false);
+        SuperLageNumber slNumber1 = new SuperLageNumber(dSet, "XZ", false);
+        SuperLageNumber slNumber2 = new SuperLageNumber(dSet, "14", false);
 //
         SuperLageNumber slNum = slNumber1.substact(slNumber2);
 //        System.out.println("slNumber1  " + slNumber1);
 //        System.out.println("slNumber2 " + slNumber2);
-//        System.out.println("slNum=slNumber1-slNumber2 " + slNum);
-////        System.out.println("slNumber1.compareTo(slNum )  " + slNumber1.compareTo(slNum));
-//        SuperLageNumber sad = slNum.add(slNumber2);
-//        System.out.println("sad  " + sad);
+        System.out.println("slNum=slNumber1-slNumber2 " + slNum);
+        System.out.println("slNumber1.compareTo(slNum )  " + slNumber1.compareTo(slNum));
+        SuperLageNumber sad = slNum.add(slNumber2);
+        System.out.println("sad  " + sad);
     }
 
     @Test

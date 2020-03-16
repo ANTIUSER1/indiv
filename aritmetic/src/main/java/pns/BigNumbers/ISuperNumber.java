@@ -2,7 +2,6 @@ package pns.BigNumbers;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -39,11 +38,11 @@ public class ISuperNumber implements Serializable {
     }
 
     protected void rebuildDigits() {
-        //System.out.println("   DIG   " + digits);
-        Set<Byte> ss = new HashSet<>(digits);
-        //System.out.println("  -- SS   " + ss);
-        digits.clear();
-        digits.addAll(ss);
+//        System.out.println("   DIG   " + digits);
+//        Set<Byte> ss = new HashSet<>(digits);
+//        System.out.println("  -- SS   " + ss);
+//        digits.clear();
+//        digits.addAll(ss);
     }
 
 }

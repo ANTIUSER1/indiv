@@ -18,45 +18,51 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
     }
 
     public SuperLageNumber(String value) {
+
         generateDigits();
         value = value.trim();
-        if (isCorrectValue(value)) this.value = removeFirstDigitsFrom(value);
-    }
-
-    public SuperLageNumber(List<Byte> extDigits, String value) {
-        Set<Byte> tmp = new HashSet<>(extDigits);
-        generateDigits(tmp);
-        if (isCorrectValue(value)) this.value = removeFirstDigitsFrom(value);
+        if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
     }
 
 
     public SuperLageNumber(Set<Byte> extDigits, String value) {
         generateDigits(extDigits);
-        if (isCorrectValue(value)) this.value = removeFirstDigitsFrom(value);
+        if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
+    }
+
+    public SuperLageNumber(List<Byte> extDigits, String value) {
+        digits = extDigits;
+        if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
+    }
+
+    public SuperLageNumber(List<Byte> extDigits, String value, boolean isNeg) {
+        digits = extDigits;
+        isNegative = isNeg;
+        if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
     }
 
     public SuperLageNumber(Set<Byte> extDigits1, Set<Byte> extDigits2, String value) {
         generateDigits(extDigits1, extDigits2);
-        if (isCorrectValue(value)) this.value = removeFirstDigitsFrom(value);
+        if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
     }
 
     public SuperLageNumber(String value, boolean negative) {
         generateDigits();
         value = value.trim();
-        if (isCorrectValue(value)) this.value = removeFirstDigitsFrom(value);
+        if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
         this.isNegative = negative;
     }
 
     public SuperLageNumber(Set<Byte> extDigits, String value, boolean negative) {
         generateDigits(extDigits);
-        if (isCorrectValue(value)) this.value = removeFirstDigitsFrom(value);
+        if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
         if (value.equals("0")) negative = false;
         this.isNegative = negative;
     }
 
     public SuperLageNumber(Set<Byte> extDigits1, Set<Byte> extDigits2, String value, boolean negative) {
         generateDigits(extDigits1, extDigits2);
-        if (isCorrectValue(value)) this.value = removeFirstDigitsFrom(value);
+        if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
         this.isNegative = negative;
     }
 
@@ -68,10 +74,11 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
         isNegative = negative;
     }
 
-    private boolean isCorrectValue(String value) {
+    private boolean isCorrectValue(List<Byte> dig, String value) {
         boolean res = true;
+
         for (int k = 0; k < value.length(); k++) {
-            boolean correct = digits.contains((byte) value.charAt(k));
+            boolean correct = dig.contains((byte) value.charAt(k));
             if (!correct)
                 throw new ArithmeticException(" Digit at " + k + " equals to  '" + value.charAt(k) + "' is  incorrect");
         }
@@ -139,10 +146,6 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
         SuperLageNumber tmpA = a.clone();
         SuperLageNumber tmpT = this.clone();
         boolean resIsNeg = tmpT.compareTo(tmpA) < 0;
-//        System.out.println("   THIS   " + digits);
-//        System.out.println("A   " + tmpA.digits);
-//        System.out.println("T   " + tmpT.digits);
-
 
         if (!tmpT.isNegative && tmpA.isNegative) {
             tmpA.setNegative(false);
@@ -177,12 +180,10 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
             tmpSTR1 = addZerosTo(tmpSTR1,
                     tmpSTR2.length() - tmpSTR1.length());
         }
-        //   System.out.println("    :   ::   :::: " + this.digits.size());
         String nc = substact(tmpSTR1, tmpSTR2);
-
         Set<Byte> tmpDig = new HashSet<>(this.digits);
 
-        //   System.out.println(tmpDig.size() + "   -----**  :   ::   :::: " + this.digits.size());
+        //System.out.println(tmpDig.size() + "   -----**  :   ::   :::: " + this.digits.size());
         SuperLageNumber res = new SuperLageNumber(tmpDig, nc, resIsNeg);
 
         return res;
@@ -370,7 +371,7 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
 
 
     public SuperLageNumber clone() {
-        return new SuperLageNumber(value, isNegative);
+        return new SuperLageNumber(digits, value, isNegative);
     }
 
 
@@ -452,47 +453,48 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
         return res.toString();
     }
 
-
     private String substact(String s1, String s2) {
-        //   rebuildDigits();
-        int N = 2 + s1.length() + s2.length();
+        rebuildDigits();
+        int N = 1 + s1.length() + s2.length();
         // System.out.println(s1 + "   ;; :   " + s2);
         s1 = addZerosTo(s1, N);
         s2 = addZerosTo(s2, N);
         String ss = addZerosTo("", s1.length());
+        // System.out.println(s1 + "     ---   " + s2);
 
-        //System.out.println(ss + "   ----   " + s1 + "     ---   " + s2);
-        //   System.out.println(digits);
-
-        int over = 0;
         boolean mustAddUnit = false;
-        StringBuilder res = new StringBuilder(ss);
+        StringBuilder res = new StringBuilder(s1);
+
         for (int k = ss.length() - 1; k >= 0; k--) {
-//            System.out.println(k + "    s  " + ss.substring(0, k + 1) + "    s2 " + s2.substring(0, k + 1));
-            byte currB1 = (byte) s1.charAt(k);
-            byte currB2 = (byte) s2.charAt(k);
-            //        System.out.println("currB1  " + currB1 + "   currB2   " + currB2);
+            byte bAdd = 0;
+            int pAdd = 0;
+            byte b1 = (byte) s1.charAt(k);
+            byte b2 = (byte) s2.charAt(k);
+            int p1 = digits.indexOf(b1);
+            int p2 = digits.indexOf(b2);
+            int p = (p1 - p2);
 
-            int n1 = digits.indexOf(currB1);
-            int n2 = digits.indexOf(currB2);
-            System.out.println("  n1  " + n1 + "  n2   " + n2);
-
-            int resInt = n1 - n2;
-            if (resInt < 0) {
-                over = 1;
-                resInt = digits.size() + resInt;
-            } else {
-                over = 0;
+            mustAddUnit = p < 0;
+            if (mustAddUnit) {
+                p = digits.size() + p;
+                if (k > 0) {
+                    bAdd = (byte) s1.charAt(k - 1);
+                    pAdd = digits.indexOf(bAdd) - 1;
+                    if (pAdd < 0) pAdd = digits.size() + pAdd;
+                    bAdd = digits.get(pAdd);
+                    //        System.out.println(bAdd + "   " + pAdd + "    ::  " + "     c      " + s1.charAt(k - 1) + "   " + (char) bAdd);
+                    res.setCharAt(k - 1, (char) bAdd);
+                }
             }
+            byte b = digits.get(p);
 
-            if (over > 0 && k > 1) {
-                System.out.println(k + "   ::   ");
-            }
-            byte resByte = digits.get(resInt);
-            res.setCharAt(k, (char) resByte);
+
+            res.setCharAt(k, (char) b);
+            s1 = res.toString();
         }
-        System.out.println("     res to str " + res.toString());
+
         return res.toString();
+
     }
 
 
