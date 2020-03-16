@@ -123,12 +123,12 @@ public class SuperLageNumberTest {
     @Test
     public void substuct() {
         Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
-        SuperLageNumber slNumber1 = new SuperLageNumber(dSet, "XZ", false);
-        SuperLageNumber slNumber2 = new SuperLageNumber(dSet, "14", false);
+        SuperLageNumber slNumber1 = new SuperLageNumber(dSet, "XZ585858XXXSSWZ", false);
+        SuperLageNumber slNumber2 = new SuperLageNumber(dSet, "ZZZAZZZZDD2121FF14", false);
 //
         SuperLageNumber slNum = slNumber1.substact(slNumber2);
-//        System.out.println("slNumber1  " + slNumber1);
-//        System.out.println("slNumber2 " + slNumber2);
+        System.out.println("slNumber1  " + slNumber1);
+        System.out.println("slNumber2 " + slNumber2);
         System.out.println("slNum=slNumber1-slNumber2 " + slNum);
         System.out.println("slNumber1.compareTo(slNum )  " + slNumber1.compareTo(slNum));
         SuperLageNumber sad = slNum.add(slNumber2);

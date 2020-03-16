@@ -30,7 +30,10 @@ public class ISuperNumber implements Serializable {
 
     protected void generateDigits(Set<Byte> extDigits) {
         generateDigits();
-        this.digitsList.addAll(this.digits.size(), extDigits);
+        for (Byte b : extDigits) {
+            digits.add(b);
+        }
+        this.digitsList.addAll(extDigits);
         base = this.digits.size();
     }
 
