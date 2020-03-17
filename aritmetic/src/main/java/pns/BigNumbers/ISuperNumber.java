@@ -33,7 +33,8 @@ public class ISuperNumber implements Serializable {
         for (Byte b : extDigits) {
             digits.add(b);
         }
-        this.digitsList.addAll(extDigits);
+        this.digitsList.addAll(digits);
+        //  System.out.println(digitsList);
         base = this.digits.size();
     }
 

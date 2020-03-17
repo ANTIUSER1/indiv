@@ -28,6 +28,8 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
     public SuperLageNumber(Set<Byte> extDigits, String value) {
         generateDigits(extDigits);
         if (isCorrectValue(digits, value)) this.value = removeFirstDigitsFrom(value);
+        //  System.out.println(digits);
+
     }
 
 //    public SuperLageNumber(Set<Byte> extDigits, String value) {
@@ -136,17 +138,19 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
     }
 
     public SuperLageNumber negate() {
-        SuperLageNumber z = new SuperLageNumber("0");
-
         SuperLageNumber res = clone();
+        res.isNegative = isNegative;
         res.rebuildDigits();
-        return z.substact(res);
+        res.isNegative = !res.isNegative;
+        return res;
     }
 
     public SuperLageNumber substact(SuperLageNumber a) {
         SuperLageNumber tmpA = a.clone();
         SuperLageNumber tmpT = this.clone();
+
         boolean resIsNeg = tmpT.compareTo(tmpA) < 0;
+        //  System.out.println(digitsList);
 
         if (!tmpT.isNegative && tmpA.isNegative) {
             tmpA.setNegative(false);
@@ -172,7 +176,7 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
             tmpA.setNegative(true);
             return tmpA;
         }
-//        System.out.println(this + "    " + a + "  " + resIsNeg);
+        //       System.out.println(this + "    " + a + "  " + resIsNeg);
         String tmpSTR1 = value;
         String tmpSTR2 = a.value;
         if (tmpSTR2.length() < tmpSTR1.length()) {
@@ -226,6 +230,8 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
         tmpT.rebuildDigits();
         SuperLageNumber[] res = new SuperLageNumber[2];
         res[0] = tmpT.intDiv(tmpA);
+
+        SuperLageNumber SLN = res[0].multiply(tmpA);
         res[1] = tmpT.substact(res[0].multiply(tmpA));
         return res;
     }
@@ -251,6 +257,7 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
         tmpT.rebuildDigits();
 
         SuperLageNumber res = ZERO;
+        res.digits = digits;
         SuperLageNumber adder = tmpA.clone();
         while (adder.compareTo(tmpT) <= 0) {
             adder = adder.add(tmpA);
@@ -262,6 +269,7 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
     public SuperLageNumber multiply(SuperLageNumber a) {
         SuperLageNumber tmpT = this.clone();
         SuperLageNumber tmpA = a.clone();
+
 
         tmpA.rebuildDigits();
         tmpT.rebuildDigits();
@@ -301,8 +309,8 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
     }
 
     private String multStringOnChar(String value, char c) {
-        //rebuildDigits();
 
+        //rebuildDigits();
         String ss = addZerosTo("000", value.length());
         value = "000" + value;
         StringBuilder res = new StringBuilder(ss);
@@ -319,7 +327,6 @@ public class SuperLageNumber extends ISuperNumber implements Comparable<SuperLag
             int over = currentProd / digits.size();
             byte overByte = digitsList.get(over);
             mem.append((char) overByte);
-
             byte newByte = digitsList.get(currentProd % digits.size());
             if (!lockedInt.contains(k)) {
                 lockedInt.add(k);

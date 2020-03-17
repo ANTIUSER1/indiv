@@ -33,12 +33,12 @@ public class BigPareOperationsTest {
 
     @Test
     public void power() {
-        BigDecimal a = new BigDecimal(2);
+        SuperLageNumber a = new SuperLageNumber("2");
         BigPareOperations bpo = new BigPareOperations();
         int b = 91;
-        BigDecimal p = bpo.power(a, b);
+        SuperLageNumber p = bpo.power(a, b);
         String pp = p + "";
         System.out.println("a=" + a + "  b=" + b + "   power=" + p + " \n" +
-                " pp len " + pp.length() + "  long Value " + p.longValue() + "  int Value " + p.intValue());
+                " pp len " + pp.length() + "  long Value " + p.getValue() + "  int Value " + p.getValue());
     }
 }

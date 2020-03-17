@@ -7,14 +7,25 @@ import java.util.Set;
 public class RationalNumberTest {
 
     @Test
+    public void create() throws Exception {
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
+        SuperLageNumber ad = new SuperLageNumber("5");
+        SuperLageNumber bd = new SuperLageNumber("15");
+        RationalNumber a = new RationalNumber(ad, bd);
+        System.out.println("ad=" + ad + "  bd=" + bd + "   a=" + a);
+        RationalNumber b = new RationalNumber(bd, ad, true);
+        System.out.println("ad=" + ad + "  bd=" + bd + "   b=" + b);
+    }
+
+    @Test
     public void add() throws Exception {
         System.out.println("      ADD     ");
 
-        SuperLageNumber ad = new SuperLageNumber("24");
-        SuperLageNumber bd = new SuperLageNumber("30");
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
+        SuperLageNumber ad = new SuperLageNumber("2");
+        SuperLageNumber bd = new SuperLageNumber("3");
         RationalNumber a = new RationalNumber(ad, bd);
-        System.out.println("ad=" + ad + "  bd=" + bd + "ad/bd=" + a);
-
+        System.out.println("     a " + a);
         SuperLageNumber ad1 = new SuperLageNumber("3");
         SuperLageNumber bd1 = new SuperLageNumber("7");
         RationalNumber b = new RationalNumber(ad1, bd1);
@@ -31,12 +42,14 @@ public class RationalNumberTest {
     public void multiply() throws Exception {
         System.out.println("      MULTIPLY     ");
 
-        SuperLageNumber ad = new SuperLageNumber("24");
-        SuperLageNumber bd = new SuperLageNumber("30");
+
+        Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
+        SuperLageNumber ad = new SuperLageNumber("3");
+        SuperLageNumber bd = new SuperLageNumber("4");
         RationalNumber a = new RationalNumber(ad, bd);
         System.out.println("ad=" + ad + "  bd=" + bd + "ad/bd=" + a);
 
-        SuperLageNumber ad1 = new SuperLageNumber("3");
+        SuperLageNumber ad1 = new SuperLageNumber("4");
         SuperLageNumber bd1 = new SuperLageNumber("5");
         RationalNumber b = new RationalNumber(ad1, bd1);
         System.out.println("ad1=" + ad1 + "  bd1=" + bd1 + "ad/bd=" + b);
@@ -54,7 +67,7 @@ public class RationalNumberTest {
         SuperLageNumber ad1 = new SuperLageNumber("3");
         SuperLageNumber bd1 = new SuperLageNumber("5");
         RationalNumber b = new RationalNumber(ad1, bd1);
-        System.out.println("ad1=" + ad1 + "  bd1=" + bd1 + "ad/bd=" + b);
+        System.out.println("ad1=" + ad1 + "  bd1=" + bd1 + "  b=" + b);
         RationalNumber neg = b.negate();
         System.out.println("-b=" + neg);
 
@@ -68,7 +81,7 @@ public class RationalNumberTest {
         SuperLageNumber ad1 = new SuperLageNumber(dSet, "3");
         SuperLageNumber bd1 = new SuperLageNumber(dSet, "5");
         RationalNumber b = new RationalNumber(ad1, bd1);
-        System.out.println("ad1=" + ad1 + "  bd1=" + bd1 + "ad/bd=" + b);
+        System.out.println("ad1=" + ad1 + "  bd1=" + bd1 + "   b=" + b);
         RationalNumber inv = b.inverse();
         System.out.println("inv=1/b=" + inv);
     }

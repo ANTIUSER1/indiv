@@ -3,10 +3,17 @@ package pns.BigNumbers;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 public class SuperLageNumberTest {
 
+    @Test
+    public void hash() {
+        String s1 = "asd";
+        String s2 = "asd";
+        System.out.println(" s1 " + Objects.hash(s1) + "   " + " s2 " + Objects.hash(s2) + "   ");
+    }
 
     @Test
     public void create() {
@@ -179,8 +186,8 @@ public class SuperLageNumberTest {
     public void divide() {
 
         Set<Byte> dSet = BigPareOperations.generateDigitSet(65, 90);
-        SuperLageNumber N1 = new SuperLageNumber("30");
-        SuperLageNumber N2 = new SuperLageNumber("7");
+        SuperLageNumber N1 = new SuperLageNumber(dSet, "ZZ");
+        SuperLageNumber N2 = new SuperLageNumber(dSet, "ZZ");
         SuperLageNumber[] N3 = N1.divide(N2);
         System.out.println("N =  " + N3[0] + "  ; " + N3[1]);
     }

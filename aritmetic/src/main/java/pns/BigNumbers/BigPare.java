@@ -1,6 +1,11 @@
 package pns.BigNumbers;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class BigPare<F extends SuperLageNumber, S extends SuperLageNumber> implements ISuperPare {
+
+    protected Set<Byte> digits = new HashSet<>();
 
     protected F first;
     protected S second;
@@ -10,6 +15,8 @@ public class BigPare<F extends SuperLageNumber, S extends SuperLageNumber> imple
         this.first.rebuildDigits();
         this.second = second;
         this.second.rebuildDigits();
+        if (!first.digits.equals(second.digits)) throw new ArithmeticException("Digits set are not equals");
+        digits = first.digits;
     }
 
     public BigPare() {

@@ -7,13 +7,12 @@ import java.util.Set;
 
 public class BigPareOperations {
 
-    public static final BigDecimal unit = new BigDecimal(1);
-    public static final BigDecimal zero = new BigDecimal(0);
+    public static final SuperLageNumber unit = new SuperLageNumber("1");
+    public static final SuperLageNumber zero = new SuperLageNumber("0");
 
     public static Set<Byte> generateDigitSet(int from, int to) {
         Set<Byte> res = new HashSet<>();
         for (int k = from; k <= to; k++) res.add((byte) k);
-        System.out.println(res);
         return res;
     }
 
@@ -38,7 +37,6 @@ public class BigPareOperations {
         SuperLageNumber res = new SuperLageNumber("0");
         a = a.abs();
         b = b.abs();
-        System.out.println(a + "   " + b + "   " + a.compareTo(b));
 
         if (a.equals(SuperLageNumber.ZERO) || b.equals(SuperLageNumber.ZERO))
             throw new Exception("GCD Error on value " + super.toString());
@@ -50,7 +48,6 @@ public class BigPareOperations {
         } else {
             SuperLageNumber c = b.substact(a);
             res = gcd(a, c);
-            System.out.println(res);
         }
         return res;
     }
@@ -69,11 +66,11 @@ public class BigPareOperations {
 
     }
 
-    public BigDecimal power(BigDecimal a, int b) {
+    public SuperLageNumber power(SuperLageNumber a, int b) {
         if (b == 0) return unit;
 
         if (b % 2 == 0) {
-            BigDecimal p = power(a, b / 2);
+            SuperLageNumber p = power(a, b / 2);
             return p.multiply(p);
         } else {
             return power(a, b - 1).multiply(a);

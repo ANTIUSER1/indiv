@@ -4,19 +4,20 @@ import java.io.Serializable;
 
 public class RationalNumber<F extends SuperLageNumber, S extends SuperLageNumber> extends BigPare<F, S> implements Serializable {
 
+    private boolean isNegative = false;
 
     public RationalNumber(F first, S second) throws Exception {
         super(first, second);
+        isNegative = !first.isNegative().equals(second.isNegative());
         if (!super.first.getDigits().equals(super.second.getDigits()))
             throw new ArithmeticException("Can not create such rational Number");
         makeRational();
 
     }
 
-    public RationalNumber(BigPare source) throws Exception {
-        super();
-        super.first = (F) source.first;
-        super.second = (S) source.second;
+    public RationalNumber(F first, S second, boolean negative) throws Exception {
+        super(first, second);
+        isNegative = !first.isNegative().equals(second.isNegative()) || negative;
         if (!super.first.getDigits().equals(super.second.getDigits()))
             throw new ArithmeticException("Can not create such rational Number  " + super.toString() + "  " +
                     "\n\r Dec 1 " + super.first.getDigits() +
@@ -26,28 +27,30 @@ public class RationalNumber<F extends SuperLageNumber, S extends SuperLageNumber
     }
 
     public RationalNumber add(RationalNumber a) throws Exception {
-        SuperLageNumber dividor1 = new SuperLageNumber("" + (first.multiply(a.second)));
-        SuperLageNumber dividor2 = new SuperLageNumber("" + (second.multiply(a.first)));
+        SuperLageNumber bt = second.multiply(a.second);
+        SuperLageNumber up1 = first.multiply(a.second);
+        SuperLageNumber up2 = second.multiply(a.first);
+        SuperLageNumber up = up1.add(up2);
 
-        SuperLageNumber dividor = new SuperLageNumber("" + dividor1.add(dividor2));
-        BigPare bp = new BigPare(dividor, a.second.multiply(second));
-        return new RationalNumber(bp);
+        return new RationalNumber(up, bt);
     }
 
     public RationalNumber multiply(RationalNumber a) throws Exception {
-        BigPare bp = new BigPare(a.first.multiply(first), a.second.multiply(second));
-        return new RationalNumber(bp);
+        SuperLageNumber bt = second.multiply(a.second);
+        SuperLageNumber up1 = first.multiply(a.first);
+
+        return new RationalNumber(up1, bt);
     }
 
 
     public RationalNumber negate() throws Exception {
-        BigPare bp = new BigPare(first.negate(), second);
-        return new RationalNumber(bp);
+        SuperLageNumber bt = second;
+        SuperLageNumber up1 = first.negate();
+        return new RationalNumber(up1, bt);
     }
 
     public RationalNumber inverse() throws Exception {
-        BigPare bp = new BigPare(second, first);
-        return new RationalNumber(bp);
+        return new RationalNumber(second, first);
     }
 
     private void makeRational() throws Exception {
@@ -66,11 +69,12 @@ public class RationalNumber<F extends SuperLageNumber, S extends SuperLageNumber
     public boolean equals(Object obj) {
         if (!(obj.getClass().equals(RationalNumber.class))) return false;
         RationalNumber other = (RationalNumber) obj;
-        return first.multiply(other.second).equals(other.first.multiply(second));
+        return this.toString().equals(other.toString());
     }
 
     @Override
     public String toString() {
-        return "(" + first + "/" + second + ") ";
+        if (isNegative) return " -(" + first + "/" + second + ") ";
+        return " (" + first + "/" + second + ") ";
     }
 }
